@@ -5,8 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Solary_Gestionnaire.View"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+             d:DesignHeight="450" d:DesignWidth="800"
+             Background="#1E1E2F">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel x:Name="UserListPanel" Margin="20">
+            <TextBlock Text="Liste des Utilisateurs" FontSize="24" Foreground="White" 
+                       FontWeight="Bold" Margin="0,0,0,20"/>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>
