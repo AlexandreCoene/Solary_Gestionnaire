@@ -2,6 +2,10 @@
 
 Bienvenue dans le projet **Solary Gestionnaire** ! Ce projet est développé en C# et a pour but de gérer les opérations de Solary.
 
+## 🔍 Qu'est-ce que Solary ?
+
+Solary est une application de gestion admin permettant d'accéder et de gérer (ajouter, supprimer, modifier...) des utilisateurs dans une base de données ainsi que des bornes photovoltaïques présentes dans le monde. Ces bornes permettent de recharger téléphone, vélo, voiture et autres en réservant une prise et un casier fermé à l'aide d'une application mobile (c'est une autre application). La borne récupère l'énergie solaire à l'aide d'un panneau solaire et la stocke dans une batterie.
+
 ## 🚀 Fonctionnalités
 
 - 📋 Gestion des tâches
