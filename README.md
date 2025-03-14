@@ -1,4 +1,4 @@
-# 🌞 Solary Gestionnaire
+# 🌞 Solary Gestionnaire 🌞
 
 Bienvenue dans **Solary Gestionnaire**, une application de gestion avancée pour l'administration de Solary. Développée en **C#**, cette application facilite la gestion des utilisateurs et des bornes photovoltaïques à travers le monde.
 
