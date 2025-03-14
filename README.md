@@ -72,7 +72,7 @@ Nous serons ravis d’examiner vos propositions ! 🚀
 
 Une question ? Un problème ?
 - **Ouvrez une issue** sur GitHub
-- Contactez le mainteneur du projet -> Coene Alexandre
+- Contactez le mainteneur du projet -> **Coene Alexandre**
 
 Merci d'utiliser **Solary Gestionnaire** ! 🌍⚡
 
