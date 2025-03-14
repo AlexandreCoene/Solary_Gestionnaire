@@ -68,12 +68,6 @@ Nous serons ravis d’examiner vos propositions ! 🚀
 
 ---
 
-## 📜 Licence
-
-Ce projet est sous licence **MIT**. Consultez le fichier [LICENSE](LICENSE) pour plus d’informations.
-
----
-
 ## 📬 Contact
 
 Une question ? Un problème ?
