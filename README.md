@@ -1,59 +1,84 @@
-# 🌟 Solary Gestionnaire 🌟
+# 🌞 Solary Gestionnaire
 
-Bienvenue dans le projet **Solary Gestionnaire** ! Ce projet est développé en C# et a pour but de gérer les opérations de Solary.
-
-## 🔍 Qu'est-ce que Solary ?
-
-Solary est une application de gestion admin permettant d'accéder et de gérer (ajouter, supprimer, modifier...) des utilisateurs dans une base de données ainsi que des bornes photovoltaïques présentes dans le monde. Ces bornes permettent de recharger téléphone, vélo, voiture et autres en réservant une prise et un casier fermé à l'aide d'une application mobile (c'est une autre application). La borne récupère l'énergie solaire à l'aide d'un panneau solaire et la stocke dans une batterie.
-
-## 🚀 Fonctionnalités
-
-- 📋 Gestion des tâches
-- 📈 Suivi des performances
-- 🗂 Organisation des projets
-- 🔔 Notifications et alertes
-
-## 📦 Installation
-
-1. Clonez le dépôt :
-   ```bash
-   git clone https://github.com/AlexandreCoene/Solary_Gestionnaire.git
-   ```
-2. Ouvrez le projet avec votre IDE préféré (par exemple, Visual Studio).
-3. Restaurez les dépendances :
-   ```bash
-   dotnet restore
-   ```
-
-## 🛠️ Utilisation
-
-1. Compilez le projet :
-   ```bash
-   dotnet build
-   ```
-2. Lancez l'application :
-   ```bash
-   dotnet run
-   ```
-
-## 🤝 Contribution
-
-Les contributions sont les bienvenues ! Veuillez suivre les étapes suivantes :
-
-1. Forkez le dépôt.
-2. Créez une branche pour votre fonctionnalité (`git checkout -b feature/AmazingFeature`).
-3. Commitez vos modifications (`git commit -m 'Add some AmazingFeature'`).
-4. Pushez la branche (`git push origin feature/AmazingFeature`).
-5. Ouvrez une Pull Request.
-
-## 📄 Licence
-
-Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
-
-## 💬 Contact
-
-Pour toute question, veuillez ouvrir une issue ou contacter le mainteneur du projet.
+Bienvenue dans **Solary Gestionnaire**, une application de gestion avancée pour l'administration de Solary. Développée en **C#**, cette application facilite la gestion des utilisateurs et des bornes photovoltaïques à travers le monde.
 
 ---
 
-Merci d'utiliser **Solary Gestionnaire** ! 🎉
+## 🚀 À propos de Solary
+
+**Solary** est un système de gestion permettant de superviser et d'administrer :
+- Les **utilisateurs** (ajout, modification, suppression...)
+- Les **bornes photovoltaïques** utilisées pour recharger divers appareils (téléphones, vélos, voitures...).
+- Les **tickets de support** permettant aux utilisateurs de contacter l'assistance en cas de problème ou de question.
+
+Ces bornes récupèrent l'énergie solaire via un panneau photovoltaïque, la stockent dans une batterie et permettent aux utilisateurs de réserver une prise et un casier sécurisé via une application mobile dédiée.
+
+---
+
+## 🎯 Fonctionnalités principales
+
+✅ **Gestion des utilisateurs** (création, modification, suppression)  
+✅ **Suivi des performances** des bornes photovoltaïques  
+✅ **Organisation et gestion des projets**  
+✅ **Système de notifications et alertes en temps réel**  
+✅ **Génération de statistiques** détaillées sur l'utilisation des bornes  
+✅ **Récupération des données des capteurs** présents dans les bornes  
+✅ **Affichage des pannes et planification des maintenances**  
+✅ **Gestion des tickets de support** permettant un dialogue entre les utilisateurs et l'assistance technique  
+
+---
+
+## 🛠️ Installation & Configuration
+
+1. **Cloner le dépôt** :
+   ```sh
+   git clone https://github.com/AlexandreCoene/Solary_Gestionnaire.git
+   ```
+
+2. **Ouvrir le projet** avec votre IDE préféré (**Visual Studio** recommandé).
+
+3. **Restaurer les dépendances** :
+   ```sh
+   dotnet restore
+   ```
+
+4. **Compiler l'application** :
+   ```sh
+   dotnet build
+   ```
+
+5. **Lancer l'application** :
+   ```sh
+   dotnet run
+   ```
+
+---
+
+## 🤝 Contribution
+
+Les contributions sont les bienvenues ! 🎉
+
+1. **Forkez** le dépôt
+2. **Créez une branche** dédiée (`git checkout -b feature/nom_de_votre_fonctionnalité`)
+3. **Commitez vos modifications** (`git commit -m 'Ajout de nom_de_votre_fonctionnalité'`)
+4. **Pushez votre branche** (`git push origin feature/nom_de_votre_fonctionnalité`)
+5. **Ouvrez une Pull Request**
+
+Nous serons ravis d’examiner vos propositions ! 🚀
+
+---
+
+## 📜 Licence
+
+Ce projet est sous licence **MIT**. Consultez le fichier [LICENSE](LICENSE) pour plus d’informations.
+
+---
+
+## 📬 Contact
+
+Une question ? Un problème ?
+- **Ouvrez une issue** sur GitHub
+- Contactez le mainteneur du projet
+
+Merci d'utiliser **Solary Gestionnaire** ! 🌍⚡
+
