@@ -53,7 +53,7 @@ namespace Solary_Gestionnaire
 
             MenuTitle.BeginAnimation(OpacityProperty, opacityAnimation);
 
-            // Mise à jour dynamique de la marge du contenu principal
+            // Mise à jour dynamique de la marge du contenu principall
             MainGrid.Margin = new Thickness(open ? menuExpandedWidth : menuCollapsedWidth, 0, 0, 0);
 
             UpdateMenuText(open);
