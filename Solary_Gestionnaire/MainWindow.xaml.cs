@@ -45,7 +45,7 @@ namespace Solary_Gestionnaire
 
             Sidebar.BeginAnimation(WidthProperty, widthAnimation);
 
-            // Animation de l'opacité du texte "Menu"
+            // Animation de l'opacité du texte "Menun"
             DoubleAnimation opacityAnimation = new DoubleAnimation(
                 open ? 0 : 1,
                 open ? 1 : 0,
@@ -53,7 +53,7 @@ namespace Solary_Gestionnaire
 
             MenuTitle.BeginAnimation(OpacityProperty, opacityAnimation);
 
-            // Mise à jour dynamique de la marge du contenu principall
+            // Mise à jour dynamique de la marge du contenu principal
             MainGrid.Margin = new Thickness(open ? menuExpandedWidth : menuCollapsedWidth, 0, 0, 0);
 
             UpdateMenuText(open);
