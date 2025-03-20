@@ -45,7 +45,7 @@ namespace Solary_Gestionnaire
 
             Sidebar.BeginAnimation(WidthProperty, widthAnimation);
 
-            // Animation de l'opacité du texte "Menun"
+            // Animation de l'opacité du texte "Menu"
             DoubleAnimation opacityAnimation = new DoubleAnimation(
                 open ? 0 : 1,
                 open ? 1 : 0,
