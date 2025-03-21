@@ -9,9 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Model\" />
     <Folder Include="Ressource\Images\" />
-    <Folder Include="Service\" />
   </ItemGroup>
 
 </Project>
