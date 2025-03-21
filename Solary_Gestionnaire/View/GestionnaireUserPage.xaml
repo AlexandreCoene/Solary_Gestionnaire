@@ -1,23 +1,37 @@
 ﻿<UserControl x:Class="Solary_Gestionnaire.View.GestionnaireUserPage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Solary_Gestionnaire.ViewModel"
              Background="#1E1E2F">
-
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="20">
-            <TextBlock Text="Liste des Utilisateurs" FontSize="24" Foreground="White" FontWeight="Bold" Margin="0,0,0,20"/>
+            <TextBlock Text="Liste des Utilisateurs" FontSize="24" Foreground="White"
+                       FontWeight="Bold" Margin="0,0,0,20"/>
 
             <ItemsControl ItemsSource="{Binding Users}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Border Background="#2A2A3D" CornerRadius="10" Padding="15" Margin="0,0,0,15">
                             <StackPanel>
+
                                 <TextBlock Text="{Binding Email}" Foreground="White" FontSize="18" FontWeight="Bold"/>
-                                <TextBlock Text="{Binding Role}" Foreground="LightGray" FontSize="14"/>
-                                <TextBlock Text="{Binding StatusCompte}" Foreground="LightGray" FontSize="14"/>
-                                <TextBlock Text="{Binding DateCreation, StringFormat='Créé le: {0:dd/MM/yyyy}'}" Foreground="LightGray" FontSize="14"/>
+                                <TextBlock Text="🔹 Rôle: " Foreground="LightGray" FontSize="14">
+                                    <Run Text="{Binding Role}"/>
+                                </TextBlock>
+                                <TextBlock Text="📅 Créé le: " Foreground="LightGray" FontSize="14">
+                                    <Run Text="{Binding Date_Creation}"/>
+                                </TextBlock>
+
+                                <!-- Boutons Détails, Modifier, Supprimer -->
+                                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                    <Button Content="Détails" Background="#4A90E2" Foreground="White" Padding="10,5" 
+                                            Margin="5" Tag="{Binding}" Click="Details_Click"/>
+                                    <Button Content="Modifier" Background="#F5A623" Foreground="White" Padding="10,5" 
+                                            Margin="5" Tag="{Binding}" Click="Modifier_Click"/>
+                                    <Button Content="Supprimer" Background="#D0021B" Foreground="White" Padding="10,5" 
+                                            Margin="5" Tag="{Binding}" Click="Supprimer_Click"/>
+                                </StackPanel>
+
                             </StackPanel>
                         </Border>
                     </DataTemplate>

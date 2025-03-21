@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Solary_Gestionnaire.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Solary Gestionnaire" Height="700" Width="1200"
+        Title="Solary Gestionnaire" Height="750" Width="1300"
         Background="#1E1E2F">
 
     <Grid>
@@ -13,19 +13,51 @@
 
         <!-- Bandeau supérieur -->
         <Grid Grid.Row="0" Background="#2A2A3D">
-            <TextBlock Text="Solary : Application de Gestion Admin " Foreground="White" FontSize="18"
+            <TextBlock Text="Solary : Application de Gestion Admin" Foreground="White" FontSize="18"
                        FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Grid>
 
         <!-- Conteneur principal -->
         <Grid Grid.Row="1">
-            <Grid Grid.Row="1" x:Name="MainGrid" Background="#1E1E2F" Margin="50,0,0,0">
-                <Border Margin="20" Background="#2E2E3F" CornerRadius="10" Padding="15">
-                    <TextBlock Text="Bienvenue dans l'application de gestion" Foreground="White" FontSize="20"
-                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Grid x:Name="MainGrid" Background="#1E1E2F" Margin="70,0,20,0">
+                <!-- Section d'accueil enrichie -->
+                <Border Margin="20" Background="#2E2E3F" CornerRadius="10" Padding="40">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                        <!-- Titre principal -->
+                        <TextBlock Text="🌞 Solary - Borne Photovoltaïque 🌞" Foreground="White" FontSize="26"
+                                   FontWeight="Bold" TextAlignment="Center" Margin="0,0,0,20"/>
+
+                        <!-- Présentation générale -->
+                        <TextBlock Text="Notre borne photovoltaïque utilise l’énergie solaire pour offrir une solution de recharge écoresponsable et sécurisée."
+                                   Foreground="LightGray" FontSize="18" TextAlignment="Center" Margin="10,10"/>
+
+                        <!-- Icônes des appareils rechargeables -->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15">
+                            <TextBlock Text="📱 Téléphone" Foreground="White" FontSize="16" Margin="15"/>
+                            <TextBlock Text="🚲 Vélo électrique" Foreground="White" FontSize="16" Margin="15"/>
+                            <TextBlock Text="💻 Tablette et PC" Foreground="White" FontSize="16" Margin="15"/>
+                        </StackPanel>
+
+                        <!-- Sécurité et écologie -->
+                        <TextBlock Text="🔒 Recharge sécurisée avec système anti-vol et accès contrôlé."
+                                   Foreground="LightGray" FontSize="18" TextAlignment="Center" Margin="10,5"/>
+
+                        <TextBlock Text="♻️ En utilisant l’énergie renouvelable, nous contribuons à un avenir plus propre et plus durable !" 
+                                   Foreground="LightGreen" FontSize="18" FontWeight="Bold" TextAlignment="Center" Margin="10,15"/>
+
+                        <!-- Avantages -->
+                        <StackPanel Margin="20,15,20,0" HorizontalAlignment="Center">
+                            <TextBlock Text="✅ Avantages de notre borne :" Foreground="White" FontSize="20" FontWeight="Bold" TextAlignment="Center" Margin="0,0,0,10"/>
+
+                            <TextBlock Text="• Énergie 100% renouvelable ☀️" Foreground="LightGray" FontSize="16" Margin="5" TextAlignment="Center"/>
+                            <TextBlock Text="• Compatible avec plusieurs appareils 🔌" Foreground="LightGray" FontSize="16" Margin="5" TextAlignment="Center"/>
+                            <TextBlock Text="• Accès sécurisé pour les utilisateurs 🔑" Foreground="LightGray" FontSize="16" Margin="5" TextAlignment="Center"/>
+                            <TextBlock Text="• Installation simple et durable ⚡" Foreground="LightGray" FontSize="16" Margin="5" TextAlignment="Center"/>
+                        </StackPanel>
+                    </StackPanel>
                 </Border>
             </Grid>
-
         </Grid>
 
         <!-- Menu latéral avec détection du survol -->
@@ -55,6 +87,5 @@
                 </Button>
             </StackPanel>
         </Border>
-
     </Grid>
 </Window>
