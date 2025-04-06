@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Solary_Gestionnaire.View
 {
@@ -20,9 +21,24 @@ namespace Solary_Gestionnaire.View
     /// </summary>
     public partial class AccueilPage : UserControl
     {
+        private DispatcherTimer sunRotationTimer;
+        private double rotationAngle = 0;
+
         public AccueilPage()
         {
             InitializeComponent();
+
+            // Initialiser et démarrer l'animation de rotation du soleil
+            sunRotationTimer = new DispatcherTimer();
+            sunRotationTimer.Interval = TimeSpan.FromMilliseconds(50);
+            sunRotationTimer.Tick += SunRotationTimer_Tick;
+            sunRotationTimer.Start();
+        }
+
+        private void SunRotationTimer_Tick(object sender, EventArgs e)
+        {
+            rotationAngle = (rotationAngle + 0.2) % 360;
+            SunRotation.Angle = rotationAngle;
         }
     }
 }

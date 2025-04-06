@@ -6,7 +6,131 @@
              xmlns:local="clr-namespace:Solary_Gestionnaire.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+    <Border Style="{StaticResource MainContentBorder}">
+        <ScrollViewer Style="{StaticResource ModernScrollViewer}">
+            <StackPanel HorizontalAlignment="Center">
+                <!-- Logo animé -->
+                <Border Width="120" Height="120" Background="{StaticResource CardBackgroundBrush}" CornerRadius="60" Margin="0,0,0,20">
+                    <TextBlock Text="🌞" FontSize="60" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock.RenderTransform>
+                            <RotateTransform x:Name="SunRotation" CenterX="30" CenterY="30"/>
+                        </TextBlock.RenderTransform>
+                    </TextBlock>
+                </Border>
+
+                <!-- Titre principal avec effet de dégradé -->
+                <TextBlock Margin="0,0,0,30">
+                    <TextBlock.Foreground>
+                        <StaticResource ResourceKey="AccentGradient"/>
+                    </TextBlock.Foreground>
+                    <TextBlock.Effect>
+                        <StaticResource ResourceKey="TextShadow"/>
+                    </TextBlock.Effect>
+                    <Run Text="Solary - Borne Photovoltaïque" FontSize="32" FontWeight="Bold"/>
+                </TextBlock>
+
+                <!-- Présentation générale avec bordure élégante -->
+                <Border Style="{StaticResource CardBorder}" Width="700" HorizontalAlignment="Center" Margin="0,0,0,30">
+                    <TextBlock Style="{StaticResource NormalText}" TextAlignment="Center"
+                               Text="Notre borne photovoltaïque utilise l'énergie solaire pour offrir une solution de recharge écoresponsable et sécurisée."/>
+                </Border>
+
+                <!-- Icônes des appareils rechargeables avec cartes -->
+                <TextBlock Style="{StaticResource SubHeaderText}" Text="Appareils compatibles" 
+                           Margin="0,0,0,15" TextAlignment="Center"/>
+
+                <UniformGrid Columns="3" Margin="0,0,0,30">
+                    <Border Style="{StaticResource CardBorder}" Margin="10">
+                        <StackPanel>
+                            <TextBlock Text="📱" FontSize="36" HorizontalAlignment="Center"/>
+                            <TextBlock Style="{StaticResource NormalText}" Text="Téléphone" 
+                                       HorizontalAlignment="Center" Margin="0,10,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource CardBorder}" Margin="10">
+                        <StackPanel>
+                            <TextBlock Text="🚲" FontSize="36" HorizontalAlignment="Center"/>
+                            <TextBlock Style="{StaticResource NormalText}" Text="Vélo électrique" 
+                                       HorizontalAlignment="Center" Margin="0,10,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource CardBorder}" Margin="10">
+                        <StackPanel>
+                            <TextBlock Text="💻" FontSize="36" HorizontalAlignment="Center"/>
+                            <TextBlock Style="{StaticResource NormalText}" Text="Tablette et PC" 
+                                       HorizontalAlignment="Center" Margin="0,10,0,0"/>
+                        </StackPanel>
+                    </Border>
+                </UniformGrid>
+
+                <!-- Sécurité et écologie avec icônes -->
+                <Border Style="{StaticResource CardBorder}" Width="700" HorizontalAlignment="Center" Margin="0,0,0,30">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,15">
+                            <TextBlock Text="🔒" FontSize="24" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <TextBlock Style="{StaticResource NormalText}" 
+                                       Text="Recharge sécurisée avec système anti-vol et accès contrôlé."
+                                       TextWrapping="Wrap"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="♻️" FontSize="24" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <TextBlock Style="{StaticResource SuccessText}" 
+                                       Text="En utilisant l'énergie renouvelable, nous contribuons à un avenir plus propre et plus durable !"
+                                       TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Avantages avec cartes modernes -->
+                <TextBlock Style="{StaticResource SubHeaderText}" Text="✅ Avantages de notre borne" 
+                           Margin="0,0,0,20" TextAlignment="Center"/>
+
+                <Grid Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Style="{StaticResource CardBorder}" Grid.Column="0" Grid.Row="0">
+                        <StackPanel>
+                            <TextBlock Text="☀️" FontSize="24" HorizontalAlignment="Center"/>
+                            <TextBlock Style="{StaticResource NormalText}" Text="Énergie 100% renouvelable" 
+                                       TextAlignment="Center" Margin="0,10,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource CardBorder}" Grid.Column="1" Grid.Row="0">
+                        <StackPanel>
+                            <TextBlock Text="🔌" FontSize="24" HorizontalAlignment="Center"/>
+                            <TextBlock Style="{StaticResource NormalText}" Text="Compatible avec plusieurs appareils" 
+                                       TextAlignment="Center" Margin="0,10,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource CardBorder}" Grid.Column="0" Grid.Row="1">
+                        <StackPanel>
+                            <TextBlock Text="🔑" FontSize="24" HorizontalAlignment="Center"/>
+                            <TextBlock Style="{StaticResource NormalText}" Text="Accès sécurisé pour les utilisateurs" 
+                                       TextAlignment="Center" Margin="0,10,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource CardBorder}" Grid.Column="1" Grid.Row="1">
+                        <StackPanel>
+                            <TextBlock Text="⚡" FontSize="24" HorizontalAlignment="Center"/>
+                            <TextBlock Style="{StaticResource NormalText}" Text="Installation simple et durable" 
+                                       TextAlignment="Center" Margin="0,10,0,0"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+    </Border>
 </UserControl>

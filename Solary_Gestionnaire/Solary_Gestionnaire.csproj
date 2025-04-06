@@ -8,4 +8,14 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Ressource\Images\SOLARY.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Ressource\Images\SOLARY.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
 </Project>

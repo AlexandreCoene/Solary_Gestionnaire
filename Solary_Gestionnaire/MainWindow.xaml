@@ -1,91 +1,176 @@
 ﻿<Window x:Class="Solary_Gestionnaire.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:Solary_Gestionnaire"
         Title="Solary Gestionnaire" Height="750" Width="1300"
-        Background="#1E1E2F">
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <!-- Animation pour le survol des boutons du menu -->
+        <Storyboard x:Key="MenuButtonHoverAnimation">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.7" To="1" Duration="0:0:0.2"/>
+        </Storyboard>
+    </Window.Resources>
 
     <Grid>
         <!-- Définition des lignes -->
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="70"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Bandeau supérieur -->
-        <Grid Grid.Row="0" Background="#2A2A3D">
-            <TextBlock Text="Solary : Application de Gestion Admin" Foreground="White" FontSize="18"
-                       FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        </Grid>
+        <!-- Bandeau supérieur amélioré avec ombre -->
+        <Border Grid.Row="0" Background="{StaticResource HeaderGradient}" 
+                BorderThickness="0,0,0,1" BorderBrush="#3A3A5F">
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="2" BlurRadius="10" Opacity="0.3" Color="Black"/>
+            </Border.Effect>
 
-        <!-- Conteneur principal -->
-        <Grid Grid.Row="1">
-            <Grid x:Name="MainGrid" Background="#1E1E2F" Margin="70,0,20,0">
-                <!-- Section d'accueil enrichie -->
-                <Border Margin="20" Background="#2E2E3F" CornerRadius="10" Padding="40">
-                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-                        <!-- Titre principal -->
-                        <TextBlock Text="🌞 Solary - Borne Photovoltaïque 🌞" Foreground="White" FontSize="26"
-                                   FontWeight="Bold" TextAlignment="Center" Margin="0,0,0,20"/>
+                <!-- Logo et titre avec animation au survol -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <!-- Logo éclair -->
+                    <Image Source="/Ressource/Images/SOLARY.png" Stretch="Uniform" Height="40" Margin="0,0,15,0">
+                        <Image.Effect>
+                            <DropShadowEffect ShadowDepth="1" BlurRadius="3" Opacity="0.4" Color="#FFD700"/>
+                        </Image.Effect>
+                    </Image>
 
-                        <!-- Présentation générale -->
-                        <TextBlock Text="Notre borne photovoltaïque utilise l’énergie solaire pour offrir une solution de recharge écoresponsable et sécurisée."
-                                   Foreground="LightGray" FontSize="18" TextAlignment="Center" Margin="10,10"/>
+                    <TextBlock Text=" | " Foreground="{StaticResource WhiteBrush}" FontSize="22" Margin="0,0,15,0" VerticalAlignment="Center"/>
+                    <TextBlock Text="Application de Gestion Admin" Foreground="{StaticResource WhiteBrush}" FontSize="20" VerticalAlignment="Center"/>
+                </StackPanel>
 
-                        <!-- Icônes des appareils rechargeables -->
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15">
-                            <TextBlock Text="📱 Téléphone" Foreground="White" FontSize="16" Margin="15"/>
-                            <TextBlock Text="🚲 Vélo électrique" Foreground="White" FontSize="16" Margin="15"/>
-                            <TextBlock Text="💻 Tablette et PC" Foreground="White" FontSize="16" Margin="15"/>
-                        </StackPanel>
+                <!-- Date, heure et informations système -->
+                <StackPanel Grid.Column="2" Orientation="Vertical" VerticalAlignment="Center" Margin="0,0,25,0">
+                    <TextBlock x:Name="DateTimeDisplay" Foreground="{StaticResource WhiteBrush}" FontSize="14" 
+                               HorizontalAlignment="Right" Margin="0,0,0,3"/>
+                    <TextBlock x:Name="SystemInfoDisplay" Text="Système connecté" Foreground="{StaticResource SuccessBrush}" 
+                               FontSize="12" HorizontalAlignment="Right"/>
+                </StackPanel>
+            </Grid>
+        </Border>
 
-                        <!-- Sécurité et écologie -->
-                        <TextBlock Text="🔒 Recharge sécurisée avec système anti-vol et accès contrôlé."
-                                   Foreground="LightGray" FontSize="18" TextAlignment="Center" Margin="10,5"/>
+        <!-- Conteneur principal avec effet d'ombre -->
+        <Grid Grid.Row="1" Background="{StaticResource BackgroundGradient}">
+            <Grid.Effect>
+                <StaticResource ResourceKey="NoDepthShadow"/>
+            </Grid.Effect>
 
-                        <TextBlock Text="♻️ En utilisant l’énergie renouvelable, nous contribuons à un avenir plus propre et plus durable !" 
-                                   Foreground="LightGreen" FontSize="18" FontWeight="Bold" TextAlignment="Center" Margin="10,15"/>
-
-                        <!-- Avantages -->
-                        <StackPanel Margin="20,15,20,0" HorizontalAlignment="Center">
-                            <TextBlock Text="✅ Avantages de notre borne :" Foreground="White" FontSize="20" FontWeight="Bold" TextAlignment="Center" Margin="0,0,0,10"/>
-
-                            <TextBlock Text="• Énergie 100% renouvelable ☀️" Foreground="LightGray" FontSize="16" Margin="5" TextAlignment="Center"/>
-                            <TextBlock Text="• Compatible avec plusieurs appareils 🔌" Foreground="LightGray" FontSize="16" Margin="5" TextAlignment="Center"/>
-                            <TextBlock Text="• Accès sécurisé pour les utilisateurs 🔑" Foreground="LightGray" FontSize="16" Margin="5" TextAlignment="Center"/>
-                            <TextBlock Text="• Installation simple et durable ⚡" Foreground="LightGray" FontSize="16" Margin="5" TextAlignment="Center"/>
-                        </StackPanel>
-                    </StackPanel>
-                </Border>
+            <!-- MainGrid - Conteneur pour les pages de contenu avec effet de transition -->
+            <Grid x:Name="MainGrid" Margin="70,0,0,0">
+                <!-- Le contenu sera chargé dynamiquement via AccueilPage -->
             </Grid>
         </Grid>
 
-        <!-- Menu latéral avec détection du survol -->
-        <Border x:Name="Sidebar" Background="#2A2A3D" Width="50"
-        VerticalAlignment="Stretch" HorizontalAlignment="Left"
-        Grid.RowSpan="2" Panel.ZIndex="2"
-        MouseEnter="Sidebar_MouseEnter" MouseLeave="Sidebar_MouseLeave">
-            <StackPanel>
-                <!-- Le titre "Menu" est toujours là mais invisible quand le menu est réduit -->
-                <TextBlock x:Name="MenuTitle" Text="Menu" Foreground="White" FontSize="24" FontWeight="Bold" Padding="10" 
-                   HorizontalAlignment="Center" Opacity="0"/>
+        <!-- Menu latéral amélioré avec effet de dégradé et ombre -->
+        <Border x:Name="Sidebar" Background="{StaticResource SidebarGradient}" Width="65"
+                VerticalAlignment="Stretch" HorizontalAlignment="Left"
+                Grid.RowSpan="2" Panel.ZIndex="2" CornerRadius="0,15,15,0"
+                MouseEnter="Sidebar_MouseEnter" MouseLeave="Sidebar_MouseLeave">
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="3" BlurRadius="15" Opacity="0.5" Color="Black"/>
+            </Border.Effect>
 
-                <Button x:Name="AccueilButton" Style="{StaticResource NavigationButtonStyle}" Content="🏠" Click="Accueil_Button_Click">
-                    <Button.ToolTip>Accueil</Button.ToolTip>
-                </Button>
-                <Button x:Name="GestionnaireBornesButton" Style="{StaticResource NavigationButtonStyle}" Content="🔌" Click="GestionnaireBornes_Button_Click">
-                    <Button.ToolTip>Gestionnaire Bornes</Button.ToolTip>
-                </Button>
-                <Button x:Name="GestionnaireUserButton" Style="{StaticResource NavigationButtonStyle}" Content="👤" Click="GestionnaireUser_Click">
-                    <Button.ToolTip>Gestionnaire User</Button.ToolTip>
-                </Button>
-                <Button x:Name="StatistiqueButton" Style="{StaticResource NavigationButtonStyle}" Content="📊" Click="Statistique_Button_Click">
-                    <Button.ToolTip>Statistiques</Button.ToolTip>
-                </Button>
-                <Button x:Name="PanneMaintenanceButton" Style="{StaticResource NavigationButtonStyle}" Content="🔧" Click="PanneMaintenance_Button_Click">
-                    <Button.ToolTip>Panne et Maintenance</Button.ToolTip>
-                </Button>
-            </StackPanel>
+            <Grid>
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"
+                              Style="{StaticResource ModernScrollViewer}">
+                    <StackPanel Margin="0,20,0,20">
+                        <!-- Logo Solary (éclair) en haut du menu avec effet de brillance -->
+                        <Border Width="45" Height="45" Background="Transparent" CornerRadius="5" Margin="0,0,0,25" 
+                                HorizontalAlignment="Center">
+                            <Image Source="Ressource/Images/Logo.png" Stretch="Uniform" Width="35" Height="35">
+                                <Image.Effect>
+                                    <DropShadowEffect ShadowDepth="0" BlurRadius="10" Opacity="0.5" Color="#FFD700"/>
+                                </Image.Effect>
+                            </Image>
+                        </Border>
+
+                        <!-- Le titre "Menu" est toujours là mais invisible quand le menu est réduit -->
+                        <TextBlock x:Name="MenuTitle" Text="MENU PRINCIPAL" Foreground="{StaticResource AccentBrush}" FontSize="16" FontWeight="Bold" 
+                                   Margin="0,0,0,20" HorizontalAlignment="Center" Opacity="0"/>
+
+                        <!-- Séparateur -->
+                        <Border x:Name="MenuSeparator1" Height="1" Background="#3A3A5F" Margin="10,0,10,20" Opacity="0"/>
+
+                        <!-- Boutons de navigation améliorés - Tous dans le même bloc -->
+                        <Button x:Name="AccueilButton" Style="{StaticResource ModernNavButton}" Margin="5,3" Click="Accueil_Button_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="🏠" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Width="25" TextAlignment="Center"/>
+                                <TextBlock x:Name="AccueilText" Text="  Accueil" Margin="8,0,0,0" VerticalAlignment="Center" Opacity="0"/>
+                            </StackPanel>
+                            <Button.ToolTip>
+                                <ToolTip Style="{StaticResource ModernToolTip}">Accueil</ToolTip>
+                            </Button.ToolTip>
+                        </Button>
+
+                        <Button x:Name="GestionnaireBornesButton" Style="{StaticResource ModernNavButton}" Margin="5,3" Click="GestionnaireBornes_Button_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="🔌" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Width="25" TextAlignment="Center"/>
+                                <TextBlock x:Name="BornesText" Text="  Gestionnaire Bornes" Margin="8,0,0,0" VerticalAlignment="Center" Opacity="0"/>
+                            </StackPanel>
+                            <Button.ToolTip>
+                                <ToolTip Style="{StaticResource ModernToolTip}">Gestionnaire Bornes</ToolTip>
+                            </Button.ToolTip>
+                        </Button>
+
+                        <Button x:Name="GestionnaireUserButton" Style="{StaticResource ModernNavButton}" Margin="5,3" Click="GestionnaireUser_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="👤" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Width="25" TextAlignment="Center"/>
+                                <TextBlock x:Name="UserText" Text="  Gestionnaire User" Margin="8,0,0,0" VerticalAlignment="Center" Opacity="0"/>
+                            </StackPanel>
+                            <Button.ToolTip>
+                                <ToolTip Style="{StaticResource ModernToolTip}">Gestionnaire User</ToolTip>
+                            </Button.ToolTip>
+                        </Button>
+
+                        <Button x:Name="StatistiqueButton" Style="{StaticResource ModernNavButton}" Margin="5,3" Click="Statistique_Button_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="📊" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Width="25" TextAlignment="Center"/>
+                                <TextBlock x:Name="StatText" Text="  Statistiques" Margin="8,0,0,0" VerticalAlignment="Center" Opacity="0"/>
+                            </StackPanel>
+                            <Button.ToolTip>
+                                <ToolTip Style="{StaticResource ModernToolTip}">Statistiques</ToolTip>
+                            </Button.ToolTip>
+                        </Button>
+
+                        <Button x:Name="PanneMaintenanceButton" Style="{StaticResource ModernNavButton}" Margin="5,3" Click="PanneMaintenance_Button_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="🔧" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Width="25" TextAlignment="Center"/>
+                                <TextBlock x:Name="MaintenanceText" Text="  Maintenance" Margin="8,0,0,0" VerticalAlignment="Center" Opacity="0"/>
+                            </StackPanel>
+                            <Button.ToolTip>
+                                <ToolTip Style="{StaticResource ModernToolTip}">Panne et Maintenance</ToolTip>
+                            </Button.ToolTip>
+                        </Button>
+
+                        <!-- Séparateur avant les paramètres -->
+                        <Border x:Name="MenuSeparator2" Height="1" Background="#3A3A5F" Margin="10,15,10,15" Opacity="0"/>
+
+                        <!-- Espace pour d'autres boutons futurs -->
+                        <Button x:Name="ParametresButton" Style="{StaticResource ModernNavButton}" Margin="5,3">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="⚙️" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Width="25" TextAlignment="Center"/>
+                                <TextBlock x:Name="ParametresText" Text="  Paramètres" Margin="8,0,0,0" VerticalAlignment="Center" Opacity="0"/>
+                            </StackPanel>
+                            <Button.ToolTip>
+                                <ToolTip Style="{StaticResource ModernToolTip}">Paramètres</ToolTip>
+                            </Button.ToolTip>
+                        </Button>
+
+                        <!-- Séparateur et informations en bas du menu -->
+                        <Border x:Name="MenuSeparator3" Height="1" Background="#3A3A5F" Margin="10,20,10,15" Opacity="0"/>
+
+                        <TextBlock x:Name="VersionText" Text="v1.0.0" Foreground="#6A6A8F" FontSize="12" 
+                                   HorizontalAlignment="Center" Margin="0,10,0,0" Opacity="0"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
         </Border>
     </Grid>
 </Window>
