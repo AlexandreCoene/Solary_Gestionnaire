@@ -179,5 +179,6 @@ namespace Solary_Gestionnaire
             // Démarrer l'animation de fondu sortant
             MainGrid.BeginAnimation(OpacityProperty, fadeOut);
         }
+
     }
 }

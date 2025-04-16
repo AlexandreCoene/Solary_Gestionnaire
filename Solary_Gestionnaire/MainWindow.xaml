@@ -84,7 +84,7 @@
                         <!-- Logo Solary (éclair) en haut du menu avec effet de brillance -->
                         <Border Width="45" Height="45" Background="Transparent" CornerRadius="5" Margin="0,0,0,25" 
                                 HorizontalAlignment="Center">
-                            <Image Source="Ressource/Images/Logo.png" Stretch="Uniform" Width="35" Height="35">
+                            <Image Source="Ressource/Images/Logo.png" Stretch="Uniform" Width="45" Height="45">
                                 <Image.Effect>
                                     <DropShadowEffect ShadowDepth="0" BlurRadius="10" Opacity="0.5" Color="#FFD700"/>
                                 </Image.Effect>

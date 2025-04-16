@@ -1,0 +1,12 @@
+﻿<Window x:Class="Solary_Gestionnaire.View.LoginWindowContainer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:view="clr-namespace:Solary_Gestionnaire.View"
+        Title="Solary - Connexion" 
+        Height="650" Width="1000"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+
+    <!-- Contenu simplifié -->
+    <view:LoginWindow x:Name="LoginControl"/>
+</Window>
