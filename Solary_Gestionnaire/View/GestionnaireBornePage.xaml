@@ -69,240 +69,310 @@
                     <DataTemplate>
                         <Border Background="#2A2A3D" CornerRadius="10" Padding="15" Margin="0,0,0,10">
                             <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
 
-                                <StackPanel Grid.Column="0">
-                                    <!-- En-tête avec ID et nom (si disponible) -->
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
+                                <!-- En-tête avec nom et ID -->
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
 
-                                        <TextBlock Text="{Binding borne_id, StringFormat=Borne ID: {0}}" 
-                                                   Foreground="White" FontSize="16" FontWeight="Bold"/>
+                                    <!-- Nom de la borne -->
+                                    <TextBlock Text="{Binding name}" 
+                                               Foreground="White" 
+                                               FontSize="18" 
+                                               FontWeight="Bold"/>
 
-                                        <TextBlock Grid.Column="1" Text="{Binding name}" 
-                                                   Foreground="White" FontSize="16" FontWeight="Bold"
-                                                   Margin="10,0,0,0" TextAlignment="Right"/>
-                                    </Grid>
-
-                                    <!-- Adresse complète -->
-                                    <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                                        <TextBlock Text="📍 Adresse: " 
+                                    <!-- ID et statut -->
+                                    <StackPanel Grid.Column="1" 
+                                                Orientation="Horizontal" 
+                                                VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding borne_id, StringFormat=ID: {0}}" 
                                                    Foreground="LightGray" 
-                                                   FontSize="14"/>
-                                        <TextBlock Text="{Binding address}" 
-                                                   Foreground="LightGray" 
-                                                   FontSize="14"/>
+                                                   FontSize="12"
+                                                   VerticalAlignment="Center"
+                                                   Margin="0,0,5,0"/>
 
-                                        <!-- Ville et code postal si disponibles -->
-                                        <TextBlock Text=", " 
-                                                   Foreground="LightGray" 
-                                                   FontSize="14">
-                                            <TextBlock.Style>
-                                                <Style TargetType="TextBlock">
-                                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding city}" Value="">
-                                                            <Setter Property="Visibility" Value="Collapsed"/>
-                                                        </DataTrigger>
-                                                        <DataTrigger Binding="{Binding city}" Value="{x:Null}">
-                                                            <Setter Property="Visibility" Value="Collapsed"/>
-                                                        </DataTrigger>
-                                                        <MultiDataTrigger>
-                                                            <MultiDataTrigger.Conditions>
-                                                                <Condition Binding="{Binding city}" Value=""/>
-                                                                <Condition Binding="{Binding city}" Value="{x:Null}"/>
-                                                            </MultiDataTrigger.Conditions>
-                                                            <Setter Property="Visibility" Value="Visible"/>
-                                                        </MultiDataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </TextBlock.Style>
-                                        </TextBlock>
-
-                                        <TextBlock Text="{Binding city}" 
-                                                   Foreground="LightGray" 
-                                                   FontSize="14">
-                                            <TextBlock.Style>
-                                                <Style TargetType="TextBlock">
-                                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding city}" Value="">
-                                                            <Setter Property="Visibility" Value="Collapsed"/>
-                                                        </DataTrigger>
-                                                        <DataTrigger Binding="{Binding city}" Value="{x:Null}">
-                                                            <Setter Property="Visibility" Value="Collapsed"/>
-                                                        </DataTrigger>
-                                                        <MultiDataTrigger>
-                                                            <MultiDataTrigger.Conditions>
-                                                                <Condition Binding="{Binding city}" Value="" />
-                                                                <Condition Binding="{Binding city}" Value="{x:Null}"/>
-                                                            </MultiDataTrigger.Conditions>
-                                                            <Setter Property="Visibility" Value="Visible"/>
-                                                        </MultiDataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </TextBlock.Style>
-                                        </TextBlock>
-
-                                        <TextBlock Text=" " 
-                                                   Foreground="LightGray" 
-                                                   FontSize="14">
-                                            <TextBlock.Style>
-                                                <Style TargetType="TextBlock">
-                                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                                    <Style.Triggers>
-                                                        <MultiDataTrigger>
-                                                            <MultiDataTrigger.Conditions>
-                                                                <Condition Binding="{Binding city}" Value=""/>
-                                                                <Condition Binding="{Binding city}" Value="{x:Null}"/>
-                                                                <Condition Binding="{Binding postal_code}" Value=""/>
-                                                                <Condition Binding="{Binding postal_code}" Value="{x:Null}"/>
-                                                            </MultiDataTrigger.Conditions>
-                                                            <Setter Property="Visibility" Value="Visible"/>
-                                                        </MultiDataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </TextBlock.Style>
-                                        </TextBlock>
-
-                                        <TextBlock Text="{Binding postal_code}" 
-                                                   Foreground="LightGray" 
-                                                   FontSize="14">
-                                            <TextBlock.Style>
-                                                <Style TargetType="TextBlock">
-                                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding postal_code}" Value="">
-                                                            <Setter Property="Visibility" Value="Collapsed"/>
-                                                        </DataTrigger>
-                                                        <DataTrigger Binding="{Binding postal_code}" Value="{x:Null}">
-                                                            <Setter Property="Visibility" Value="Collapsed"/>
-                                                        </DataTrigger>
-                                                        <MultiDataTrigger>
-                                                            <MultiDataTrigger.Conditions>
-                                                                <Condition Binding="{Binding postal_code}" Value=""/>
-                                                                <Condition Binding="{Binding postal_code}" Value="{x:Null}"/>
-                                                            </MultiDataTrigger.Conditions>
-                                                            <Setter Property="Visibility" Value="Visible"/>
-                                                        </MultiDataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </TextBlock.Style>
-                                        </TextBlock>
-                                    </StackPanel>
-
-                                    <!-- Puissance de sortie -->
-                                    <TextBlock Text="{Binding power_output, StringFormat=⚡ Puissance: {0} kW}" 
-                                               Foreground="LightGray" FontSize="14" Margin="0,5,0,0"/>
-
-                                    <!-- Niveau de charge -->
-                                    <TextBlock Text="{Binding charge_percentage, StringFormat=🔋 Charge: {0}%}" 
-                                               Foreground="LightGray" 
-                                               FontSize="14"
-                                               Margin="0,5,0,0"/>
-
-                                    <!-- Statut -->
-                                    <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                                        <TextBlock Text="✅ Statut: " 
-                                                   Foreground="LightGray" 
-                                                   FontSize="14"/>
-                                        <TextBlock Text="{Binding status}" 
-                                                   FontSize="14">
-                                            <TextBlock.Style>
-                                                <Style TargetType="TextBlock">
-                                                    <Setter Property="Foreground" Value="LightGray"/>
+                                        <!-- Indicateur visuel de statut -->
+                                        <Ellipse Width="16" Height="16" 
+                                                 VerticalAlignment="Center">
+                                            <Ellipse.Style>
+                                                <Style TargetType="Ellipse">
+                                                    <Setter Property="Fill" Value="Gray"/>
                                                     <Style.Triggers>
                                                         <DataTrigger Binding="{Binding status}" Value="disponible">
-                                                            <Setter Property="Foreground" Value="LightGreen"/>
+                                                            <Setter Property="Fill" Value="Green"/>
                                                         </DataTrigger>
                                                         <DataTrigger Binding="{Binding status}" Value="occupé">
-                                                            <Setter Property="Foreground" Value="Orange"/>
+                                                            <Setter Property="Fill" Value="Red"/>
                                                         </DataTrigger>
                                                         <DataTrigger Binding="{Binding status}" Value="hors service">
-                                                            <Setter Property="Foreground" Value="Red"/>
+                                                            <Setter Property="Fill" Value="Red"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding is_in_maintenance}" Value="1">
+                                                            <Setter Property="Fill" Value="Orange"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Ellipse.Style>
+                                        </Ellipse>
+                                    </StackPanel>
+                                </Grid>
+
+                                <!-- Contenu principal avec informations et boutons -->
+                                <Grid Grid.Row="1" Margin="0,10,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- Informations de la borne -->
+                                    <StackPanel Grid.Column="0">
+                                        <!-- Adresse complète -->
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
+                                            <TextBlock Text="📍 Adresse: " 
+                                                       Foreground="LightGray" 
+                                                       FontSize="14"/>
+                                            <TextBlock Text="{Binding address}" 
+                                                       Foreground="LightGray" 
+                                                       FontSize="14"/>
+
+                                            <!-- Ville et code postal si disponibles -->
+                                            <TextBlock Text=", " 
+                                                       Foreground="LightGray" 
+                                                       FontSize="14">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding city}" Value="">
+                                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding city}" Value="{x:Null}">
+                                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                            </DataTrigger>
+                                                            <MultiDataTrigger>
+                                                                <MultiDataTrigger.Conditions>
+                                                                    <Condition Binding="{Binding city}" Value=""/>
+                                                                    <Condition Binding="{Binding city}" Value="{x:Null}"/>
+                                                                </MultiDataTrigger.Conditions>
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </MultiDataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+
+                                            <TextBlock Text="{Binding city}" 
+                                                       Foreground="LightGray" 
+                                                       FontSize="14">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding city}" Value="">
+                                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding city}" Value="{x:Null}">
+                                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                            </DataTrigger>
+                                                            <MultiDataTrigger>
+                                                                <MultiDataTrigger.Conditions>
+                                                                    <Condition Binding="{Binding city}" Value=""/>
+                                                                    <Condition Binding="{Binding city}" Value="{x:Null}"/>
+                                                                </MultiDataTrigger.Conditions>
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </MultiDataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+
+                                            <TextBlock Text=" " 
+                                                       Foreground="LightGray" 
+                                                       FontSize="14">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                        <Style.Triggers>
+                                                            <MultiDataTrigger>
+                                                                <MultiDataTrigger.Conditions>
+                                                                    <Condition Binding="{Binding city}" Value=""/>
+                                                                    <Condition Binding="{Binding city}" Value="{x:Null}"/>
+                                                                    <Condition Binding="{Binding postal_code}" Value=""/>
+                                                                    <Condition Binding="{Binding postal_code}" Value="{x:Null}"/>
+                                                                </MultiDataTrigger.Conditions>
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </MultiDataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+
+                                            <TextBlock Text="{Binding postal_code}" 
+                                                       Foreground="LightGray" 
+                                                       FontSize="14">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding postal_code}" Value="">
+                                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding postal_code}" Value="{x:Null}">
+                                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                            </DataTrigger>
+                                                            <MultiDataTrigger>
+                                                                <MultiDataTrigger.Conditions>
+                                                                    <Condition Binding="{Binding postal_code}" Value=""/>
+                                                                    <Condition Binding="{Binding postal_code}" Value="{x:Null}"/>
+                                                                </MultiDataTrigger.Conditions>
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </MultiDataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </StackPanel>
+
+                                        <!-- Puissance de sortie -->
+                                        <TextBlock Text="{Binding power_output, StringFormat=⚡ Puissance: {0} kW}" 
+                                                   Foreground="LightGray" FontSize="14" Margin="0,5,0,0"/>
+
+                                        <!-- Niveau de charge -->
+                                        <TextBlock Text="{Binding charge_percentage, StringFormat=🔋 Charge: {0}%}" 
+                                                   Foreground="LightGray" 
+                                                   FontSize="14"
+                                                   Margin="0,5,0,0"/>
+
+                                        <!-- Statut -->
+                                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                            <TextBlock Text="✅ Statut: " 
+                                                       Foreground="LightGray" 
+                                                       FontSize="14"/>
+                                            <TextBlock Text="{Binding status}" 
+                                                       FontSize="14">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Foreground" Value="LightGray"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding status}" Value="disponible">
+                                                                <Setter Property="Foreground" Value="LightGreen"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding status}" Value="occupé">
+                                                                <Setter Property="Foreground" Value="Red"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding status}" Value="hors service">
+                                                                <Setter Property="Foreground" Value="Red"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </StackPanel>
+
+                                        <!-- Maintenance -->
+                                        <TextBlock Text="🔧 En maintenance" 
+                                                   Foreground="Orange" 
+                                                   FontSize="14"
+                                                   FontWeight="Bold"
+                                                   Margin="0,5,0,0">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding is_in_maintenance}" Value="1">
+                                                            <Setter Property="Visibility" Value="Visible"/>
                                                         </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>
                                             </TextBlock.Style>
                                         </TextBlock>
+
+                                        <!-- Date de création -->
+                                        <Grid Margin="0,5,0,0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <!-- Date de création -->
+                                            <TextBlock Grid.Column="0"
+                                                       Text="{Binding created_at, StringFormat=🕒 Créée le: {0}}" 
+                                                       Foreground="LightGray" 
+                                                       FontSize="14"/>
+
+                                            <!-- Boutons d'action alignés avec la date de création -->
+                                            <StackPanel Grid.Column="1" 
+                                                        Orientation="Horizontal" 
+                                                        HorizontalAlignment="Right">
+                                                <!-- Bouton Détails -->
+                                                <Button Content="🔍 Détails" 
+                                                        Background="#4A90E2" 
+                                                        Foreground="White" 
+                                                        Padding="10,5" 
+                                                        BorderThickness="0"
+                                                        Click="DetailsBorne_Click"
+                                                        Tag="{Binding borne_id}"
+                                                        ToolTip="Voir les détails de cette borne"
+                                                        Margin="0,0,5,0">
+                                                    <Button.Resources>
+                                                        <Style TargetType="Border">
+                                                            <Setter Property="CornerRadius" Value="4"/>
+                                                        </Style>
+                                                    </Button.Resources>
+                                                </Button>
+
+                                                <!-- Bouton de suppression -->
+                                                <Button Content="🗑️" 
+                                                        Background="#D32F2F" 
+                                                        Foreground="White" 
+                                                        Width="32" 
+                                                        Height="32" 
+                                                        Padding="0" 
+                                                        BorderThickness="0"
+                                                        Click="DeleteBorne_Click"
+                                                        Tag="{Binding borne_id}"
+                                                        ToolTip="Supprimer cette borne">
+                                                    <Button.Resources>
+                                                        <Style TargetType="Border">
+                                                            <Setter Property="CornerRadius" Value="16"/>
+                                                        </Style>
+                                                    </Button.Resources>
+                                                </Button>
+                                            </StackPanel>
+                                        </Grid>
+
+                                        <!-- Dernière utilisation si disponible -->
+                                        <TextBlock Text="{Binding last_used_at, StringFormat=🕒 Dernière utilisation: {0}}" 
+                                                   Foreground="LightGray" FontSize="14" Margin="0,5,0,0">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding last_used_at}" Value="{x:Null}">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding last_used_at}" Value="">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                        <MultiDataTrigger>
+                                                            <MultiDataTrigger.Conditions>
+                                                                <Condition Binding="{Binding last_used_at}" Value="{x:Null}"/>
+                                                                <Condition Binding="{Binding last_used_at}" Value=""/>
+                                                            </MultiDataTrigger.Conditions>
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </MultiDataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
                                     </StackPanel>
-
-                                    <!-- Maintenance -->
-                                    <TextBlock Text="🔧 En maintenance" 
-                                               Foreground="Orange" 
-                                               FontSize="14"
-                                               FontWeight="Bold"
-                                               Margin="0,5,0,0">
-                                        <TextBlock.Style>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="Visibility" Value="Collapsed"/>
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding is_in_maintenance}" Value="1">
-                                                        <Setter Property="Visibility" Value="Visible"/>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </TextBlock.Style>
-                                    </TextBlock>
-
-                                    <!-- Date de création -->
-                                    <TextBlock Text="{Binding created_at, StringFormat=🕒 Créée le: {0}}" 
-                                               Foreground="LightGray" FontSize="14" Margin="0,5,0,0"/>
-
-                                    <!-- Dernière utilisation si disponible -->
-                                    <TextBlock Text="{Binding last_used_at, StringFormat=🕒 Dernière utilisation: {0}}" 
-                                               Foreground="LightGray" FontSize="14" Margin="0,5,0,0">
-                                        <TextBlock.Style>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="Visibility" Value="Collapsed"/>
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding last_used_at}" Value="{x:Null}">
-                                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding last_used_at}" Value="">
-                                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                                    </DataTrigger>
-                                                    <MultiDataTrigger>
-                                                        <MultiDataTrigger.Conditions>
-                                                            <Condition Binding="{Binding last_used_at}" Value="{x:Null}"/>
-                                                            <Condition Binding="{Binding last_used_at}" Value=""/>
-                                                        </MultiDataTrigger.Conditions>
-                                                        <Setter Property="Visibility" Value="Visible"/>
-                                                    </MultiDataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </TextBlock.Style>
-                                    </TextBlock>
-                                </StackPanel>
-
-                                <!-- Indicateur visuel de statut -->
-                                <Ellipse Grid.Column="1" Width="16" Height="16" Margin="0,0,5,0" VerticalAlignment="Top">
-                                    <Ellipse.Style>
-                                        <Style TargetType="Ellipse">
-                                            <Setter Property="Fill" Value="Gray"/>
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding status}" Value="disponible">
-                                                    <Setter Property="Fill" Value="Green"/>
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Binding status}" Value="occupé">
-                                                    <Setter Property="Fill" Value="Orange"/>
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Binding status}" Value="hors service">
-                                                    <Setter Property="Fill" Value="Red"/>
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Binding is_in_maintenance}" Value="1">
-                                                    <Setter Property="Fill" Value="Orange"/>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Ellipse.Style>
-                                </Ellipse>
+                                </Grid>
                             </Grid>
                         </Border>
                     </DataTemplate>
@@ -311,3 +381,4 @@
         </ScrollViewer>
     </Grid>
 </UserControl>
+

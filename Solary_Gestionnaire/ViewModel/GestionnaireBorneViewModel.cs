@@ -95,6 +95,51 @@ namespace Solary_Gestionnaire.ViewModel
             }
         }
 
+        public async Task<bool> DeleteBorneAsync(int borneId)
+        {
+            try
+            {
+                IsLoading = true;
+                ErrorMessage = string.Empty;
+
+                var success = await _borneService.DeleteBorneAsync(borneId);
+
+                if (success)
+                {
+                    // Supprimer la borne de la collection
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        var borneToRemove = Bornes.FirstOrDefault(b => b.borne_id == borneId);
+                        if (borneToRemove != null)
+                        {
+                            Bornes.Remove(borneToRemove);
+                        }
+                    });
+                    return true;
+                }
+                else
+                {
+                    ErrorMessage = "Erreur lors de la suppression de la borne.";
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = $"Erreur lors de la suppression de la borne: {ex.Message}";
+                return false;
+            }
+            finally
+            {
+                IsLoading = false;
+            }
+        }
+
+        // Méthode pour récupérer une borne par son ID
+        public Borne GetBorneById(int borneId)
+        {
+            return Bornes.FirstOrDefault(b => b.borne_id == borneId);
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName)

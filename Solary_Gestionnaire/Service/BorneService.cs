@@ -51,6 +51,26 @@ namespace Solary_Gestionnaire.Service
             }
         }
 
+        // Méthode pour supprimer une borne
+        public async Task<bool> DeleteBorneAsync(int borneId)
+        {
+            try
+            {
+                var response = await _httpClient.DeleteAsync($"{BaseUrl}/DeleteBorne/{borneId}");
+
+                // Lire et afficher la réponse
+                var responseContent = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"Réponse de suppression: {response.StatusCode} - {responseContent}");
+
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception dans DeleteBorneAsync: {ex.Message}");
+                throw;
+            }
+        }
+
         // Méthode pour ajouter une borne
         public async Task<bool> AddBorneAsync(Borne borne)
         {
