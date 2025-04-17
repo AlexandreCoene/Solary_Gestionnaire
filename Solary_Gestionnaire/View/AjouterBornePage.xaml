@@ -8,36 +8,97 @@
              d:DesignHeight="450" d:DesignWidth="800"
              Background="#1E1E2F">
 
-    <Grid>
-        <Border Background="#2E2E3F" CornerRadius="10" Padding="20" Margin="50">
+    <Grid x:Name="MainGrid" Background="#1E1E2F">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- En-tête avec titre et bouton de retour -->
+        <Grid Grid.Row="0" Margin="20,20,20,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Content="← Retour" 
+                    Click="RetourButton_Click"
+                    Background="Transparent" 
+                    Foreground="White" 
+                    BorderThickness="0"
+                    Padding="5"
+                    Margin="0,0,10,0"/>
+
+            <TextBlock Grid.Column="1" 
+                       Text="Ajouter une Borne de Recharge" 
+                       FontSize="24" 
+                       Foreground="White" 
+                       FontWeight="Bold"/>
+        </Grid>
+
+        <!-- Indicateurs de chargement, erreur et succès -->
+        <StackPanel Grid.Row="1" Margin="20,0,20,10">
+            <!-- Indicateur de chargement -->
+            <ProgressBar Height="5" 
+                         IsIndeterminate="True" 
+                         Visibility="{Binding LoadingVisibility}"/>
+
+            <!-- Message d'erreur -->
+            <TextBlock Text="{Binding ErrorMessage}" 
+                       Foreground="#D0021B" 
+                       FontSize="14" 
+                       TextWrapping="Wrap"
+                       Margin="0,5,0,0"
+                       Visibility="{Binding ErrorVisibility}"/>
+
+            <!-- Message de succès -->
+            <TextBlock Text="{Binding SuccessMessage}" 
+                       Foreground="#4CAF50" 
+                       FontSize="14" 
+                       TextWrapping="Wrap"
+                       Margin="0,5,0,0"
+                       Visibility="{Binding SuccessVisibility}"/>
+        </StackPanel>
+
+        <!-- Formulaire d'ajout -->
+        <Border Grid.Row="2" 
+                Background="#2A2A3D" 
+                CornerRadius="10" 
+                Padding="20" 
+                Margin="20,0,20,20">
             <StackPanel>
-                <!-- Titre -->
-                <TextBlock Text="Ajouter une Borne" FontSize="22" FontWeight="Bold" 
-                           Foreground="White" Margin="0,0,0,20" HorizontalAlignment="Center"/>
+                <TextBlock Text="Informations de la Borne" 
+                           FontSize="18" 
+                           Foreground="White" 
+                           FontWeight="Bold" 
+                           Margin="0,0,0,20"/>
 
-                <!-- Champ Nom -->
-                <TextBlock Text="Nom de la Borne" Foreground="White" Margin="5"/>
-                <TextBox x:Name="NomBorne" Background="White" Foreground="Black" Padding="5"/>
+                <!-- Emplacement -->
+                <TextBlock Text="Emplacement" 
+                           Foreground="LightGray" 
+                           Margin="0,0,0,5"/>
+                <TextBox Text="{Binding Location, UpdateSourceTrigger=PropertyChanged}" 
+                         Padding="10" 
+                         Margin="0,0,0,15"
+                         Background="#1E1E2F"
+                         Foreground="White"
+                         BorderBrush="#4A4A6A"/>
 
-                <!-- Champ Emplacement -->
-                <TextBlock Text="Emplacement" Foreground="White" Margin="10,5,0,0"/>
-                <TextBox x:Name="EmplacementBorne" Background="White" Foreground="Black" Padding="5"/>
+                <!-- Disponibilité -->
+                <CheckBox Content="Disponible" 
+                          IsChecked="{Binding IsAvailable}" 
+                          Foreground="LightGray" 
+                          Margin="0,0,0,20"/>
 
-                <!-- Statut -->
-                <TextBlock Text="Statut" Foreground="White" Margin="10,5,0,0"/>
-                <ComboBox x:Name="StatutBorne" Background="White" Foreground="Black" Padding="5">
-                    <ComboBoxItem Content="Active"/>
-                    <ComboBoxItem Content="En maintenance"/>
-                    <ComboBoxItem Content="Inactive"/>
-                </ComboBox>
-
-                <!-- Boutons -->
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="20,10,0,0">
-                    <Button Content="✅ Ajouter" Background="#4CAF50" Foreground="White" 
-                            Padding="10" Margin="5"/>
-                    <Button Content="❌ Annuler" Background="#D0021B" Foreground="White" 
-                            Padding="10" Margin="5"/>
-                </StackPanel>
+                <!-- Bouton d'ajout -->
+                <Button Content="Ajouter la Borne" 
+                        Click="AjouterButton_Click"
+                        Background="#4CAF50" 
+                        Foreground="White" 
+                        Padding="15,10" 
+                        HorizontalAlignment="Center"
+                        Width="200"/>
             </StackPanel>
         </Border>
     </Grid>

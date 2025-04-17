@@ -8,17 +8,18 @@
              d:DesignHeight="450" d:DesignWidth="800"
              Background="#1E1E2F">
 
-    <Grid>
+    <Grid x:Name="MainGrid" Background="#1E1E2F">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- En-tête avec titre et bouton de rafraîchissement -->
+        <!-- En-tête avec titre et boutons -->
         <Grid Grid.Row="0" Margin="20,20,20,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
@@ -27,7 +28,17 @@
                        Foreground="White" 
                        FontWeight="Bold"/>
 
+            <!-- Bouton pour ajouter une borne -->
             <Button Grid.Column="1" 
+                    Content="➕ Ajouter une borne" 
+                    Click="AjouterBorne_Click"
+                    Background="#4CAF50" 
+                    Foreground="White" 
+                    Padding="10,5"
+                    Margin="0,0,10,0"/>
+
+            <!-- Bouton pour actualiser -->
+            <Button Grid.Column="2" 
                     Content="🔄 Actualiser" 
                     Click="RefreshButton_Click"
                     Background="#4A90E2" 
