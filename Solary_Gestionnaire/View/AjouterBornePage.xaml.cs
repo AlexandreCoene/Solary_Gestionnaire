@@ -17,7 +17,6 @@ using Solary_Gestionnaire.ViewModel;
 using System.Windows.Threading;
 using System.Windows.Media.Animation;
 
-
 namespace Solary_Gestionnaire.View
 {
     public partial class AjouterBornePage : UserControl
@@ -41,18 +40,38 @@ namespace Solary_Gestionnaire.View
 
         private async void AjouterButton_Click(object sender, RoutedEventArgs e)
         {
-            bool success = await _viewModel.AjouterBorneAsync();
-
-            // Si l'ajout est réussi, on peut automatiquement retourner à la page de gestion après un délai
-            if (success)
+            try
             {
-                // Attendre 2 secondes pour que l'utilisateur puisse voir le message de succès
-                await System.Threading.Tasks.Task.Delay(2000);
+                // Désactiver le bouton pendant l'opération
+                AjouterButton.IsEnabled = false;
 
-                AnimatePageTransition(() => {
-                    MainGrid.Children.Clear();
-                    MainGrid.Children.Add(new GestionnaireBornePage());
-                });
+                bool success = await _viewModel.AjouterBorneAsync();
+
+                // Si l'ajout est réussi, on peut automatiquement retourner à la page de gestion après un délai
+                if (success)
+                {
+                    // Attendre 2 secondes pour que l'utilisateur puisse voir le message de succès
+                    await System.Threading.Tasks.Task.Delay(2000);
+
+                    AnimatePageTransition(() => {
+                        MainGrid.Children.Clear();
+                        MainGrid.Children.Add(new GestionnaireBornePage());
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Une erreur s'est produite: {ex.Message}",
+                    "Erreur",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
+            }
+            finally
+            {
+                // Réactiver le bouton
+                AjouterButton.IsEnabled = true;
             }
         }
 

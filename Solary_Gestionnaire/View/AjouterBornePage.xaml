@@ -62,44 +62,151 @@
         </StackPanel>
 
         <!-- Formulaire d'ajout -->
-        <Border Grid.Row="2" 
-                Background="#2A2A3D" 
-                CornerRadius="10" 
-                Padding="20" 
-                Margin="20,0,20,20">
-            <StackPanel>
-                <TextBlock Text="Informations de la Borne" 
-                           FontSize="18" 
-                           Foreground="White" 
-                           FontWeight="Bold" 
-                           Margin="0,0,0,20"/>
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" Margin="20,0,20,20">
+            <Border Background="#2A2A3D" 
+                    CornerRadius="10" 
+                    Padding="20" 
+                    Margin="0,0,0,0">
+                <StackPanel>
+                    <TextBlock Text="Informations de la Borne" 
+                               FontSize="18" 
+                               Foreground="White" 
+                               FontWeight="Bold" 
+                               Margin="0,0,0,20"/>
 
-                <!-- Emplacement -->
-                <TextBlock Text="Emplacement" 
-                           Foreground="LightGray" 
-                           Margin="0,0,0,5"/>
-                <TextBox Text="{Binding Location, UpdateSourceTrigger=PropertyChanged}" 
-                         Padding="10" 
-                         Margin="0,0,0,15"
-                         Background="#1E1E2F"
-                         Foreground="White"
-                         BorderBrush="#4A4A6A"/>
+                    <!-- Nom (requis selon la doc) -->
+                    <TextBlock Text="Nom *" 
+                               Foreground="LightGray" 
+                               Margin="0,0,0,5"/>
+                    <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" 
+                             Padding="10" 
+                             Margin="0,0,0,15"
+                             Background="#1E1E2F"
+                             Foreground="White"
+                             BorderBrush="#4A4A6A"/>
 
-                <!-- Disponibilité -->
-                <CheckBox Content="Disponible" 
-                          IsChecked="{Binding IsAvailable}" 
-                          Foreground="LightGray" 
-                          Margin="0,0,0,20"/>
+                    <!-- Adresse (requis selon la doc) -->
+                    <TextBlock Text="Adresse *" 
+                               Foreground="LightGray" 
+                               Margin="0,0,0,5"/>
+                    <TextBox Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}" 
+                             Padding="10" 
+                             Margin="0,0,0,15"
+                             Background="#1E1E2F"
+                             Foreground="White"
+                             BorderBrush="#4A4A6A"/>
 
-                <!-- Bouton d'ajout -->
-                <Button Content="Ajouter la Borne" 
-                        Click="AjouterButton_Click"
-                        Background="#4CAF50" 
-                        Foreground="White" 
-                        Padding="15,10" 
-                        HorizontalAlignment="Center"
-                        Width="200"/>
-            </StackPanel>
-        </Border>
+                    <!-- Ville (requis selon la doc) -->
+                    <TextBlock Text="Ville *" 
+                               Foreground="LightGray" 
+                               Margin="0,0,0,5"/>
+                    <TextBox Text="{Binding City, UpdateSourceTrigger=PropertyChanged}" 
+                             Padding="10" 
+                             Margin="0,0,0,15"
+                             Background="#1E1E2F"
+                             Foreground="White"
+                             BorderBrush="#4A4A6A"/>
+
+                    <!-- Code postal (requis selon la doc) -->
+                    <TextBlock Text="Code postal *" 
+                               Foreground="LightGray" 
+                               Margin="0,0,0,5"/>
+                    <TextBox Text="{Binding PostalCode, UpdateSourceTrigger=PropertyChanged}" 
+                             Padding="10" 
+                             Margin="0,0,0,15"
+                             Background="#1E1E2F"
+                             Foreground="White"
+                             BorderBrush="#4A4A6A"/>
+
+                    <!-- Coordonnées géographiques -->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Latitude (requis selon la doc) -->
+                        <StackPanel Grid.Column="0" Margin="0,0,5,0">
+                            <TextBlock Text="Latitude *" 
+                                       Foreground="LightGray" 
+                                       Margin="0,0,0,5"/>
+                            <TextBox Text="{Binding Latitude, UpdateSourceTrigger=PropertyChanged}" 
+                                     Padding="10" 
+                                     Margin="0,0,0,15"
+                                     Background="#1E1E2F"
+                                     Foreground="White"
+                                     BorderBrush="#4A4A6A"/>
+                        </StackPanel>
+
+                        <!-- Longitude (requis selon la doc) -->
+                        <StackPanel Grid.Column="1" Margin="5,0,0,0">
+                            <TextBlock Text="Longitude *" 
+                                       Foreground="LightGray" 
+                                       Margin="0,0,0,5"/>
+                            <TextBox Text="{Binding Longitude, UpdateSourceTrigger=PropertyChanged}" 
+                                     Padding="10" 
+                                     Margin="0,0,0,15"
+                                     Background="#1E1E2F"
+                                     Foreground="White"
+                                     BorderBrush="#4A4A6A"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- Puissance de sortie (optionnel selon la doc) -->
+                    <TextBlock Text="Puissance de sortie (kW)" 
+                               Foreground="LightGray" 
+                               Margin="0,0,0,5"/>
+                    <TextBox Text="{Binding PowerOutput, UpdateSourceTrigger=PropertyChanged}" 
+                             Padding="10" 
+                             Margin="0,0,0,15"
+                             Background="#1E1E2F"
+                             Foreground="White"
+                             BorderBrush="#4A4A6A"/>
+
+                    <!-- Niveau de charge (optionnel selon la doc) -->
+                    <TextBlock Text="Niveau de charge (%)" 
+                               Foreground="LightGray" 
+                               Margin="0,0,0,5"/>
+                    <Slider Value="{Binding ChargePercentage}" 
+                            Minimum="0" 
+                            Maximum="100" 
+                            Margin="0,0,0,5"
+                            Background="#1E1E2F"
+                            Foreground="White"/>
+                    <TextBlock Text="{Binding ChargePercentage, StringFormat={}{0}%}" 
+                               Foreground="LightGray" 
+                               Margin="0,0,0,15"
+                               HorizontalAlignment="Center"/>
+
+                    <!-- Statut (optionnel selon la doc) -->
+                    <TextBlock Text="Statut" 
+                               Foreground="LightGray" 
+                               Margin="0,0,0,5"/>
+                    <ComboBox ItemsSource="{Binding StatusOptions}" 
+                              SelectedItem="{Binding Status}"
+                              Padding="10" 
+                              Margin="0,0,0,15"
+                              Background="#1E1E2F"
+                              Foreground="White"
+                              BorderBrush="#4A4A6A"/>
+
+                    <!-- Maintenance (optionnel selon la doc) -->
+                    <CheckBox Content="En maintenance" 
+                              IsChecked="{Binding IsInMaintenance}" 
+                              Foreground="LightGray" 
+                              Margin="0,0,0,20"/>
+
+                    <!-- Bouton d'ajout -->
+                    <Button x:Name="AjouterButton"
+                            Content="Ajouter la Borne" 
+                            Click="AjouterButton_Click"
+                            Background="#4CAF50" 
+                            Foreground="White" 
+                            Padding="15,10" 
+                            HorizontalAlignment="Center"
+                            Width="200"/>
+                </StackPanel>
+            </Border>
+        </ScrollViewer>
     </Grid>
 </UserControl>

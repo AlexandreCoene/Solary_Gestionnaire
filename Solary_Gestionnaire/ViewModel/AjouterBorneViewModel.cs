@@ -15,29 +15,117 @@ namespace Solary_Gestionnaire.ViewModel
     public class AjouterBorneViewModel : INotifyPropertyChanged
     {
         private readonly BorneService _borneService;
-        private string _location;
-        private bool _isAvailable = true;
+        private string _name;
+        private string _address;
+        private string _city;
+        private string _postalCode;
+        private string _latitude = "0.0";
+        private string _longitude = "0.0";
+        private string _powerOutput = "11.00";
+        private int _chargePercentage = 100;
+        private string _status = "disponible";
+        private bool _isInMaintenance;
         private bool _isLoading;
         private string _errorMessage;
         private string _successMessage;
 
-        public string Location
+        public string Name
         {
-            get => _location;
+            get => _name;
             set
             {
-                _location = value;
-                OnPropertyChanged(nameof(Location));
+                _name = value;
+                OnPropertyChanged(nameof(Name));
             }
         }
 
-        public bool IsAvailable
+        public string Address
         {
-            get => _isAvailable;
+            get => _address;
             set
             {
-                _isAvailable = value;
-                OnPropertyChanged(nameof(IsAvailable));
+                _address = value;
+                OnPropertyChanged(nameof(Address));
+            }
+        }
+
+        public string City
+        {
+            get => _city;
+            set
+            {
+                _city = value;
+                OnPropertyChanged(nameof(City));
+            }
+        }
+
+        public string PostalCode
+        {
+            get => _postalCode;
+            set
+            {
+                _postalCode = value;
+                OnPropertyChanged(nameof(PostalCode));
+            }
+        }
+
+        public string Latitude
+        {
+            get => _latitude;
+            set
+            {
+                _latitude = value;
+                OnPropertyChanged(nameof(Latitude));
+            }
+        }
+
+        public string Longitude
+        {
+            get => _longitude;
+            set
+            {
+                _longitude = value;
+                OnPropertyChanged(nameof(Longitude));
+            }
+        }
+
+        public string PowerOutput
+        {
+            get => _powerOutput;
+            set
+            {
+                _powerOutput = value;
+                OnPropertyChanged(nameof(PowerOutput));
+            }
+        }
+
+        public int ChargePercentage
+        {
+            get => _chargePercentage;
+            set
+            {
+                _chargePercentage = value;
+                OnPropertyChanged(nameof(ChargePercentage));
+            }
+        }
+
+        public string Status
+        {
+            get => _status;
+            set
+            {
+                _status = value;
+                OnPropertyChanged(nameof(Status));
+            }
+        }
+
+        public bool IsInMaintenance
+        {
+            get => _isInMaintenance;
+            set
+            {
+                _isInMaintenance = value;
+                OnPropertyChanged(nameof(IsInMaintenance));
             }
         }
 
@@ -80,6 +168,9 @@ namespace Solary_Gestionnaire.ViewModel
 
         public Visibility SuccessVisibility => string.IsNullOrEmpty(SuccessMessage) ? Visibility.Collapsed : Visibility.Visible;
 
+        // Liste des statuts disponibles
+        public string[] StatusOptions => new[] { "disponible", "occupé", "hors service" };
+
         public AjouterBorneViewModel()
         {
             _borneService = new BorneService();
@@ -87,9 +178,9 @@ namespace Solary_Gestionnaire.ViewModel
 
         public async Task<bool> AjouterBorneAsync()
         {
-            if (string.IsNullOrWhiteSpace(Location))
+            if (string.IsNullOrWhiteSpace(Address))
             {
-                ErrorMessage = "L'emplacement est obligatoire.";
+                ErrorMessage = "L'adresse est obligatoire.";
                 return false;
             }
 
@@ -101,9 +192,16 @@ namespace Solary_Gestionnaire.ViewModel
 
                 var nouvelleBorne = new Borne
                 {
-                    location = Location,
-                    is_available = IsAvailable ? 1 : 0,
-                    created_at = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                    name = Name ?? "",
+                    address = Address,
+                    city = City ?? "",
+                    postal_code = PostalCode ?? "",
+                    latitude = Latitude,
+                    longitude = Longitude,
+                    power_output = PowerOutput,
+                    charge_percentage = ChargePercentage,
+                    status = Status,
+                    is_in_maintenance = IsInMaintenance ? 1 : 0
                 };
 
                 var success = await _borneService.AddBorneAsync(nouvelleBorne);
@@ -112,8 +210,7 @@ namespace Solary_Gestionnaire.ViewModel
                 {
                     SuccessMessage = "La borne a été ajoutée avec succès.";
                     // Réinitialiser les champs
-                    Location = string.Empty;
-                    IsAvailable = true;
+                    ResetFields();
                     return true;
                 }
                 else
@@ -131,6 +228,20 @@ namespace Solary_Gestionnaire.ViewModel
             {
                 IsLoading = false;
             }
+        }
+
+        private void ResetFields()
+        {
+            Name = string.Empty;
+            Address = string.Empty;
+            City = string.Empty;
+            PostalCode = string.Empty;
+            Latitude = "0.0";
+            Longitude = "0.0";
+            PowerOutput = "11.00";
+            ChargePercentage = 100;
+            Status = "disponible";
+            IsInMaintenance = false;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

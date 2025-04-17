@@ -38,7 +38,6 @@ namespace Solary_Gestionnaire.ViewModel
             {
                 _isLoading = value;
                 OnPropertyChanged(nameof(IsLoading));
-                // Update the visibility binding
                 OnPropertyChanged(nameof(LoadingVisibility));
             }
         }
@@ -52,7 +51,6 @@ namespace Solary_Gestionnaire.ViewModel
             {
                 _errorMessage = value;
                 OnPropertyChanged(nameof(ErrorMessage));
-                // Update the visibility binding
                 OnPropertyChanged(nameof(ErrorVisibility));
             }
         }
@@ -64,7 +62,7 @@ namespace Solary_Gestionnaire.ViewModel
             _borneService = new BorneService();
             Bornes = new ObservableCollection<Borne>();
 
-            // Load bornes when ViewModel is created
+            // Charger les bornes au démarrage
             Task.Run(async () => await LoadBornesAsync());
         }
 
@@ -77,7 +75,7 @@ namespace Solary_Gestionnaire.ViewModel
 
                 var bornes = await _borneService.GetAllBornesAsync();
 
-                // Update UI on the UI thread
+                // Mettre à jour l'interface sur le thread UI
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     Bornes.Clear();
