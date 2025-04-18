@@ -41,13 +41,11 @@ namespace Solary_Gestionnaire.View
 
         private void ModifierBorne_Click(object sender, RoutedEventArgs e)
         {
-            // Naviguer vers la page de modification (à implémenter)
-            MessageBox.Show(
-                "La fonctionnalité de modification sera disponible prochainement.",
-                "Information",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information
-            );
+            // Naviguer vers la page de modification
+            AnimatePageTransition(() => {
+                MainGrid.Children.Clear();
+                MainGrid.Children.Add(new ModifierBornePage(_borne));
+            });
         }
 
         private async void SupprimerBorne_Click(object sender, RoutedEventArgs e)
@@ -128,4 +126,3 @@ namespace Solary_Gestionnaire.View
         }
     }
 }
-
