@@ -1,0 +1,324 @@
+﻿<UserControl x:Class="Solary_Gestionnaire.View.DetailUserPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Solary_Gestionnaire.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <Grid x:Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- En-tête avec titre et bouton de retour -->
+        <Border Grid.Row="0" Background="{StaticResource HeaderGradient}" 
+                Padding="20,15" Effect="{StaticResource SmallShadow}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Content="← Retour" 
+                        Click="RetourButton_Click"
+                        Style="{StaticResource StandardButton}"
+                        Background="Transparent"
+                        Padding="5"
+                        Margin="0,0,10,0"/>
+
+                <TextBlock Grid.Column="1" 
+                           Text="Détails de l'Utilisateur" 
+                           Style="{StaticResource HeaderText}"
+                           Margin="0"/>
+            </Grid>
+        </Border>
+
+        <!-- Contenu principal -->
+        <Border Grid.Row="1" Style="{StaticResource MainContentBorder}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Indicateurs de chargement et erreur -->
+                <StackPanel Grid.Row="0" Margin="0,0,0,20">
+                    <!-- Indicateur de chargement -->
+                    <ProgressBar Height="5" 
+                                 IsIndeterminate="True" 
+                                 Visibility="{Binding LoadingVisibility}"
+                                 Style="{StaticResource ModernProgressBar}"/>
+
+                    <!-- Message d'erreur -->
+                    <TextBlock Text="{Binding ErrorMessage}" 
+                               Foreground="#D0021B" 
+                               FontSize="14" 
+                               TextWrapping="Wrap"
+                               Margin="0,5,0,0"
+                               Visibility="{Binding ErrorVisibility}"/>
+                </StackPanel>
+
+                <!-- Contenu détaillé de l'utilisateur -->
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <Border Style="{StaticResource CardBorder}" Margin="0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Informations principales -->
+                            <StackPanel Grid.Column="0">
+                                <!-- ID et Email -->
+                                <Grid Margin="0,0,0,20">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Text="{Binding UserIdDisplay, StringFormat=ID: {0}}" 
+                                               Style="{StaticResource AccentText}"
+                                               FontSize="18"/>
+
+                                    <TextBlock Grid.Column="1" 
+                                               Text="{Binding EmailDisplay}" 
+                                               Style="{StaticResource HeaderText}"
+                                               FontSize="20"
+                                               HorizontalAlignment="Right"
+                                               Margin="0"/>
+                                </Grid>
+
+                                <!-- Séparateur -->
+                                <Separator Margin="0,0,0,20" Background="#3F3F5F"/>
+
+                                <!-- Informations détaillées -->
+                                <TextBlock Text="Informations du compte" 
+                                           Style="{StaticResource SubHeaderText}"/>
+
+                                <Grid Margin="0,10,0,20">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="150"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <!-- Email -->
+                                    <TextBlock Grid.Row="0" Grid.Column="0" 
+                                               Text="Email:" 
+                                               Style="{StaticResource SecondaryText}"
+                                               Margin="0,0,0,10"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="1" 
+                                               Text="{Binding EmailDisplay}" 
+                                               Style="{StaticResource NormalText}"
+                                               Margin="0,0,0,10"/>
+
+                                    <!-- Rôle -->
+                                    <TextBlock Grid.Row="1" Grid.Column="0" 
+                                               Text="Rôle:" 
+                                               Style="{StaticResource SecondaryText}"
+                                               Margin="0,0,0,10"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" 
+                                               Text="{Binding RoleDisplay}" 
+                                               Margin="0,0,0,10">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock" BasedOn="{StaticResource NormalText}">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding RoleDisplay}" Value="admin">
+                                                        <Setter Property="Foreground" Value="{StaticResource AccentBrush}"/>
+                                                        <Setter Property="FontWeight" Value="SemiBold"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+
+                                    <!-- Statut -->
+                                    <TextBlock Grid.Row="2" Grid.Column="0" 
+                                               Text="Statut:" 
+                                               Style="{StaticResource SecondaryText}"
+                                               Margin="0,0,0,10"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="1" 
+                                               Text="{Binding StatusDisplay}" 
+                                               Margin="0,0,0,10">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock" BasedOn="{StaticResource NormalText}">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding StatusDisplay}" Value="actif">
+                                                        <Setter Property="Foreground" Value="{StaticResource SuccessBrush}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding StatusDisplay}" Value="inactif">
+                                                        <Setter Property="Foreground" Value="#D0021B"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+
+                                    <!-- Compte vérifié -->
+                                    <TextBlock Grid.Row="3" Grid.Column="0" 
+                                               Text="Vérification:" 
+                                               Style="{StaticResource SecondaryText}"
+                                               Margin="0,0,0,10"/>
+                                    <TextBlock Grid.Row="3" Grid.Column="1" 
+                                               Text="{Binding CompteVerifieDisplay}" 
+                                               Margin="0,0,0,10">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock" BasedOn="{StaticResource NormalText}">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding CompteVerifieDisplay}" Value="Vérifié">
+                                                        <Setter Property="Foreground" Value="{StaticResource SuccessBrush}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding CompteVerifieDisplay}" Value="Non vérifié">
+                                                        <Setter Property="Foreground" Value="#D0021B"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+
+                                    <!-- Date de création -->
+                                    <TextBlock Grid.Row="4" Grid.Column="0" 
+                                               Text="Créé le:" 
+                                               Style="{StaticResource SecondaryText}"
+                                               Margin="0,0,0,10"/>
+                                    <TextBlock Grid.Row="4" Grid.Column="1" 
+                                               Text="{Binding DateCreationDisplay}" 
+                                               Style="{StaticResource NormalText}"
+                                               Margin="0,0,0,10"/>
+
+                                    <!-- Dernier login -->
+                                    <TextBlock Grid.Row="5" Grid.Column="0" 
+                                               Text="Dernière connexion:" 
+                                               Style="{StaticResource SecondaryText}"
+                                               Margin="0,0,0,10"/>
+                                    <TextBlock Grid.Row="5" Grid.Column="1" 
+                                               Text="{Binding DernierLoginDisplay}" 
+                                               Style="{StaticResource NormalText}"
+                                               Margin="0,0,0,10"/>
+                                </Grid>
+
+                                <!-- Séparateur -->
+                                <Separator Margin="0,0,0,20" Background="#3F3F5F"/>
+
+                                <!-- Informations de sécurité -->
+                                <TextBlock Text="Informations de sécurité" 
+                                           Style="{StaticResource SubHeaderText}"/>
+
+                                <Grid Margin="0,10,0,20">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="150"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <!-- Code OTP -->
+                                    <TextBlock Grid.Row="0" Grid.Column="0" 
+                                               Text="Code OTP:" 
+                                               Style="{StaticResource SecondaryText}"
+                                               Margin="0,0,0,10"
+                                               Visibility="{Binding OtpCodeVisibility}"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="1" 
+                                               Text="{Binding OtpCodeDisplay}" 
+                                               Margin="0,0,0,10"
+                                               Visibility="{Binding OtpCodeVisibility}">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock" BasedOn="{StaticResource NormalText}">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding OtpCodeDisplay}" Value="Aucun code OTP">
+                                                        <Setter Property="Foreground" Value="#D0021B"/>
+                                                        <Setter Property="FontStyle" Value="Italic"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+
+                                    <!-- Date de création OTP -->
+                                    <TextBlock Grid.Row="1" Grid.Column="0" 
+                                               Text="OTP créé le:" 
+                                               Style="{StaticResource SecondaryText}"
+                                               Margin="0,0,0,10"
+                                               Visibility="{Binding OtpCreatedAtVisibility}"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" 
+                                               Text="{Binding OtpCreatedAtDisplay}" 
+                                               Margin="0,0,0,10"
+                                               Visibility="{Binding OtpCreatedAtVisibility}">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock" BasedOn="{StaticResource NormalText}">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding OtpCreatedAtDisplay}" Value="Non définie">
+                                                        <Setter Property="Foreground" Value="#D0021B"/>
+                                                        <Setter Property="FontStyle" Value="Italic"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+
+                                    <!-- Hachage du mot de passe -->
+                                    <TextBlock Grid.Row="2" Grid.Column="0" 
+                                               Text="Hachage MDP:" 
+                                               Style="{StaticResource SecondaryText}"
+                                               Margin="0,0,0,10"
+                                               VerticalAlignment="Top"/>
+                                    <Border Grid.Row="2" Grid.Column="1" 
+                                            Background="{StaticResource SecondaryBrush}"
+                                            CornerRadius="8"
+                                            Padding="10,8"
+                                            Margin="0,0,0,10">
+                                        <TextBox Text="{Binding PasswordHashDisplay, Mode=OneWay}" 
+                                                 Background="Transparent"
+                                                 Foreground="{StaticResource WhiteBrush}"
+                                                 BorderThickness="0"
+                                                 IsReadOnly="True"
+                                                 TextWrapping="Wrap"
+                                                 Height="Auto"
+                                                 MinHeight="60"
+                                                 MaxHeight="100"
+                                                 VerticalScrollBarVisibility="Auto"
+                                                 HorizontalScrollBarVisibility="Disabled"
+                                                 FontFamily="Consolas"/>
+                                    </Border>
+                                </Grid>
+                            </StackPanel>
+
+                            <!-- Boutons d'action -->
+                            <StackPanel Grid.Column="1" Margin="20,0,0,0" Width="150">
+                                <Button Content="✏️ Modifier" 
+                                        Style="{StaticResource StandardButton}"
+                                        Background="#4A90E2"
+                                        Margin="0,0,0,10"
+                                        Click="ModifierUser_Click"/>
+
+                                <Button Content="🔄 Réinitialiser MDP" 
+                                        Style="{StaticResource StandardButton}"
+                                        Background="#F5A623"
+                                        Margin="0,0,0,10"
+                                        Click="ResetPassword_Click"/>
+
+                                <Button Content="🗑️ Supprimer" 
+                                        Style="{StaticResource StandardButton}"
+                                        Background="#D32F2F"
+                                        Click="SupprimerUser_Click"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

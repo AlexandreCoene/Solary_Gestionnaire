@@ -13,5 +13,11 @@ namespace Solary_Gestionnaire.Model
         public string Role { get; set; }
         public string StatusCompte { get; set; }
         public DateTime DateCreation { get; set; }
+        public string PasswordHash { get; set; }
+        public DateTime? DernierLogin { get; set; }
+        public string OtpCode { get; set; }
+        public int CompteVerifie { get; set; }
+        public DateTime? OtpCreatedAt { get; set; }
     }
 }
+

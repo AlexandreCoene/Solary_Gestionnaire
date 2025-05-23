@@ -3,40 +3,227 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              Background="#1E1E2F">
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="20">
-            <TextBlock Text="Liste des Utilisateurs" FontSize="24" Foreground="White"
-                       FontWeight="Bold" Margin="0,0,0,20"/>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-            <ItemsControl ItemsSource="{Binding Users}">
+        <!-- En-tête avec titre et boutons -->
+        <Grid Grid.Row="0" Margin="20,20,20,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Gestion des Utilisateurs" 
+                       FontSize="24" 
+                       Foreground="White" 
+                       FontWeight="Bold"/>
+
+            <!-- Bouton pour ajouter un utilisateur -->
+            <Button Grid.Column="1" 
+                    Content="➕ Ajouter un utilisateur" 
+                    Click="AjouterUser_Click"
+                    Background="#4CAF50" 
+                    Foreground="White" 
+                    Padding="10,5"/>
+        </Grid>
+
+        <!-- Barre de recherche -->
+        <Grid Grid.Row="1" Margin="20,0,20,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" 
+                     Padding="10,5" 
+                     Margin="0,0,10,0"
+                     Background="#2A2A3D"
+                     Foreground="White"
+                     BorderBrush="#4A4A6A">
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type TextBox}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type TextBox}">
+                                    <Border Background="{TemplateBinding Background}"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            CornerRadius="4">
+                                        <Grid>
+                                            <TextBlock Text="Rechercher un utilisateur..." 
+                                                       Foreground="Gray" 
+                                                       Margin="{TemplateBinding Padding}"/>
+                                            <ScrollViewer x:Name="PART_ContentHost" 
+                                                          Margin="{TemplateBinding Padding}"
+                                                          VerticalAlignment="Center"/>
+                                        </Grid>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
+
+            <Button Grid.Column="1" 
+                    Content="🔄 Actualiser" 
+                    Click="RefreshButton_Click"
+                    Background="#4A90E2" 
+                    Foreground="White" 
+                    Padding="10,5"/>
+        </Grid>
+
+        <!-- Indicateur de chargement et message d'erreur -->
+        <StackPanel Grid.Row="2" Margin="20,0,20,10">
+            <!-- Indicateur de chargement -->
+            <ProgressBar Height="5" 
+                         IsIndeterminate="True" 
+                         Visibility="{Binding LoadingVisibility}"/>
+
+            <!-- Message d'erreur -->
+            <TextBlock Text="{Binding ErrorMessage}" 
+                       Foreground="#D0021B" 
+                       FontSize="14" 
+                       TextWrapping="Wrap"
+                       Margin="0,5,0,0"
+                       Visibility="{Binding ErrorVisibility}"/>
+        </StackPanel>
+
+        <!-- Liste des utilisateurs -->
+        <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto" Margin="20,0,20,20">
+            <ItemsControl ItemsSource="{Binding FilteredUsers}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border Background="#2A2A3D" CornerRadius="10" Padding="15" Margin="0,0,0,15">
-                            <StackPanel>
+                        <Border Background="#2A2A3D" CornerRadius="10" Padding="15" Margin="0,0,0,10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
 
-                                <TextBlock Text="{Binding Email}" Foreground="White" FontSize="18" FontWeight="Bold"/>
-                                <TextBlock Text="🔹 Rôle: " Foreground="LightGray" FontSize="14">
-                                    <Run Text="{Binding Role}"/>
-                                </TextBlock>
-                                <TextBlock Text="📅 Créé le: " Foreground="LightGray" FontSize="14">
-                                    <Run Text="{Binding Date_Creation}"/>
-                                </TextBlock>
+                                <!-- Informations de l'utilisateur -->
+                                <StackPanel Grid.Column="0">
+                                    <TextBlock Text="{Binding Email}" 
+                                               Foreground="White" 
+                                               FontSize="18" 
+                                               FontWeight="Bold"/>
 
-                                <!-- Boutons Détails, Modifier, Supprimer -->
-                                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                                    <Button Content="Détails" Background="#4A90E2" Foreground="White" Padding="10,5" 
-                                            Margin="5" Tag="{Binding}" Click="Details_Click"/>
-                                    <Button Content="Modifier" Background="#F5A623" Foreground="White" Padding="10,5" 
-                                            Margin="5" Tag="{Binding}" Click="Modifier_Click"/>
-                                    <Button Content="Supprimer" Background="#D0021B" Foreground="White" Padding="10,5" 
-                                            Margin="5" Tag="{Binding}" Click="Supprimer_Click"/>
+                                    <Grid Margin="0,5,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <!-- Rôle -->
+                                        <TextBlock Grid.Row="0" Grid.Column="0" 
+                                                   Text="🔹 Rôle: " 
+                                                   Foreground="LightGray" 
+                                                   FontSize="14"
+                                                   Margin="0,0,5,5"/>
+                                        <TextBlock Grid.Row="0" Grid.Column="1" 
+                                                   Text="{Binding Role}" 
+                                                   Foreground="LightGray" 
+                                                   FontSize="14"
+                                                   Margin="0,0,0,5"/>
+
+                                        <!-- Statut -->
+                                        <TextBlock Grid.Row="1" Grid.Column="0" 
+                                                   Text="🔸 Statut: " 
+                                                   Foreground="LightGray" 
+                                                   FontSize="14"
+                                                   Margin="0,0,5,5"/>
+                                        <TextBlock Grid.Row="1" Grid.Column="1" 
+                                                   Text="{Binding StatusCompte}" 
+                                                   Foreground="LightGray" 
+                                                   FontSize="14"
+                                                   Margin="0,0,0,5"/>
+
+                                        <!-- Ajouter plus d'informations dans la liste des utilisateurs -->
+                                        <TextBlock Grid.Row="2" Grid.Column="0" 
+                                                   Text="🔑 Compte vérifié: " 
+                                                   Foreground="LightGray" 
+                                                   FontSize="14"
+                                                   Margin="0,0,5,5"/>
+                                        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
+                                            <TextBlock Text="{Binding CompteVerifie}" 
+                                                       Foreground="LightGray" 
+                                                       FontSize="14"
+                                                       Margin="0,0,5,5"/>
+                                            <Ellipse Width="10" Height="10" 
+                                                     VerticalAlignment="Center"
+                                                     Margin="0,0,0,5">
+                                                <Ellipse.Style>
+                                                    <Style TargetType="Ellipse">
+                                                        <Setter Property="Fill" Value="Red"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding CompteVerifie}" Value="1">
+                                                                <Setter Property="Fill" Value="Green"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Ellipse.Style>
+                                            </Ellipse>
+                                        </StackPanel>
+
+                                        <!-- Ajouter une ligne pour le dernier login -->
+                                        <TextBlock Grid.Row="3" Grid.Column="0" 
+                                                   Text="🕒 Dernier login: " 
+                                                   Foreground="LightGray" 
+                                                   FontSize="14"
+                                                   Margin="0,0,5,0"/>
+                                        <TextBlock Grid.Row="3" Grid.Column="1" 
+                                                   Text="{Binding DernierLogin, TargetNullValue='Jamais connecté', StringFormat={}{0:dd/MM/yyyy HH:mm}}" 
+                                                   Foreground="LightGray" 
+                                                   FontSize="14"
+                                                   Margin="0,0,0,0"/>
+                                    </Grid>
                                 </StackPanel>
 
-                            </StackPanel>
+                                <!-- Boutons d'action -->
+                                <StackPanel Grid.Column="1" 
+                                            Orientation="Vertical" 
+                                            VerticalAlignment="Center"
+                                            Margin="10,0,0,0">
+                                    <Button Content="🔍 Détails" 
+                                            Background="#4A90E2" 
+                                            Foreground="White" 
+                                            Padding="10,5" 
+                                            Margin="0,0,0,5"
+                                            Tag="{Binding}" 
+                                            Click="Details_Click"/>
+
+                                    <Button Content="✏️ Modifier" 
+                                            Background="#F5A623" 
+                                            Foreground="White" 
+                                            Padding="10,5" 
+                                            Margin="0,0,0,5"
+                                            Tag="{Binding}" 
+                                            Click="Modifier_Click"/>
+
+                                    <Button Content="🗑️ Supprimer" 
+                                            Background="#D0021B" 
+                                            Foreground="White" 
+                                            Padding="10,5" 
+                                            Margin="0,0,0,0"
+                                            Tag="{Binding}" 
+                                            Click="Supprimer_Click"/>
+                                </StackPanel>
+                            </Grid>
                         </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-        </StackPanel>
-    </ScrollViewer>
+        </ScrollViewer>
+    </Grid>
 </UserControl>
