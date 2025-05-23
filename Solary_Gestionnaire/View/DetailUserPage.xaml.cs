@@ -75,12 +75,43 @@ namespace Solary_Gestionnaire.View
 
         private void ModifierUser_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(
-                "La fonctionnalité de modification sera disponible prochainement.",
-                "Information",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information
-            );
+            try
+            {
+                // Trouver le parent direct qui contient ce UserControl
+                DependencyObject parent = this.Parent;
+                while (parent != null && !(parent is Grid))
+                {
+                    parent = LogicalTreeHelper.GetParent(parent);
+                }
+
+                if (parent is Grid parentGrid)
+                {
+                    // Utiliser l'animation de transition
+                    AnimatePageTransition(parentGrid, () => {
+                        // Effacer le contenu actuel et ajouter la page de modification
+                        parentGrid.Children.Clear();
+                        parentGrid.Children.Add(new ModifierUserPage(_user));
+                    });
+                }
+                else
+                {
+                    MessageBox.Show(
+                        "Impossible de naviguer vers la page de modification.",
+                        "Erreur de navigation",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Erreur lors de la navigation: {ex.Message}",
+                    "Erreur",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
+            }
         }
 
         private void ResetPassword_Click(object sender, RoutedEventArgs e)

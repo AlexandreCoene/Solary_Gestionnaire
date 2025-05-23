@@ -90,6 +90,41 @@ namespace Solary_Gestionnaire.Service
                 return (false, ex.Message);
             }
         }
+
+        public async Task<(bool Success, string ErrorMessage)> UpdateUserAsync(User user, string newPassword = null)
+        {
+            try
+            {
+                var userData = new
+                {
+                    user_id = user.UserId,
+                    email = user.Email,
+                    role = user.Role,
+                    status_compte = user.StatusCompte,
+                    compte_verifie = user.CompteVerifie,
+                    otp_code = user.OtpCode,
+                    password = newPassword // Inclure le nouveau mot de passe seulement s'il est fourni
+                };
+
+                var json = JsonSerializer.Serialize(userData);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await _httpClient.PutAsync($"{BaseUrl}/UpdateUser/{user.UserId}", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return (true, string.Empty);
+                }
+                else
+                {
+                    string responseContent = await response.Content.ReadAsStringAsync();
+                    return (false, $"Erreur HTTP {(int)response.StatusCode}: {responseContent}");
+                }
+            }
+            catch (Exception ex)
+            {
+                return (false, ex.Message);
+            }
+        }
     }
 
     public class UserJsonConverter : System.Text.Json.Serialization.JsonConverter<User>
