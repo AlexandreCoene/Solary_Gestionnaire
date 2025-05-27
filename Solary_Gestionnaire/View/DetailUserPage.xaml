@@ -304,12 +304,6 @@
                                         Margin="0,0,0,10"
                                         Click="ModifierUser_Click"/>
 
-                                <Button Content="🔄 Réinitialiser MDP" 
-                                        Style="{StaticResource StandardButton}"
-                                        Background="#F5A623"
-                                        Margin="0,0,0,10"
-                                        Click="ResetPassword_Click"/>
-
                                 <Button Content="🗑️ Supprimer" 
                                         Style="{StaticResource StandardButton}"
                                         Background="#D32F2F"

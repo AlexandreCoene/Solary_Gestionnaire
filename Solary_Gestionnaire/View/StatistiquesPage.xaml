@@ -4,9 +4,306 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Solary_Gestionnaire.View"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+             d:DesignHeight="600" d:DesignWidth="900">
+
+    <Grid Background="#1E1E2F">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- En-tête -->
+        <Grid Grid.Row="0" Margin="20,20,20,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0">
+                <TextBlock Text="Statistiques Énergétiques" 
+                           FontSize="24" 
+                           FontWeight="Bold" 
+                           Foreground="White" 
+                           Margin="0,0,0,10"/>
+                <TextBlock Text="Visualisation des données énergétiques des bornes" 
+                           FontSize="14" 
+                           Foreground="#8A8D93" 
+                           Margin="0,0,0,5"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="Sélectionner une borne:" 
+                           Foreground="White" 
+                           VerticalAlignment="Center" 
+                           Margin="0,0,10,0"/>
+                <ComboBox x:Name="BorneComboBox" 
+                          Width="200" 
+                          ItemsSource="{Binding Bornes}" 
+                          SelectedItem="{Binding SelectedBorne}" 
+                          DisplayMemberPath="name"
+                          Background="#252A41" 
+                          Foreground="White" 
+                          BorderBrush="#3F51B5" 
+                          Padding="8,5">
+                    <ComboBox.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="#252A41"/>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#3F51B5"/>
+                    </ComboBox.Resources>
+                </ComboBox>
+            </StackPanel>
+        </Grid>
+
+        <!-- Contenu principal - Graphiques -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <Grid Margin="20,0,20,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Message de chargement -->
+                <Border Grid.Row="0" Grid.ColumnSpan="2" 
+                        Background="#252A41" 
+                        CornerRadius="8" 
+                        Padding="15" 
+                        Margin="0,0,0,15"
+                        Visibility="{Binding LoadingVisibility}">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="Chargement des données..." 
+                                   Foreground="White" 
+                                   VerticalAlignment="Center" 
+                                   Margin="0,0,10,0"/>
+                        <ProgressBar IsIndeterminate="True" 
+                                     Width="100" 
+                                     Height="10" 
+                                     Foreground="#3F51B5"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Message d'erreur -->
+                <Border Grid.Row="0" Grid.ColumnSpan="2" 
+                        Background="#FF5252" 
+                        CornerRadius="8" 
+                        Padding="15" 
+                        Margin="0,0,0,15"
+                        Visibility="{Binding ErrorVisibility}">
+                    <TextBlock Text="{Binding ErrorMessage}" 
+                               Foreground="White" 
+                               TextWrapping="Wrap"/>
+                </Border>
+
+                <!-- Graphique de tension -->
+                <Border Grid.Row="1" Grid.Column="0" 
+                        Background="#252A41" 
+                        CornerRadius="8" 
+                        Margin="0,0,7.5,15">
+                    <Grid Margin="15">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" 
+                                   Text="Tension (V)" 
+                                   FontSize="16" 
+                                   FontWeight="SemiBold" 
+                                   Foreground="White" 
+                                   Margin="0,0,0,10"/>
+                        <lvc:CartesianChart Grid.Row="1" 
+                                           Series="{Binding VoltageSeriesCollection}" 
+                                           LegendLocation="None" 
+                                           Height="200">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="Date/Heure" 
+                                         Labels="{Binding Labels}" 
+                                         Foreground="White"/>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Volts (V)" 
+                                         LabelFormatter="{Binding YFormatter}" 
+                                         Foreground="White"/>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                    </Grid>
+                </Border>
+
+                <!-- Graphique de courant -->
+                <Border Grid.Row="1" Grid.Column="1" 
+                        Background="#252A41" 
+                        CornerRadius="8" 
+                        Margin="7.5,0,0,15">
+                    <Grid Margin="15">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" 
+                                   Text="Courant (A)" 
+                                   FontSize="16" 
+                                   FontWeight="SemiBold" 
+                                   Foreground="White" 
+                                   Margin="0,0,0,10"/>
+                        <lvc:CartesianChart Grid.Row="1" 
+                                           Series="{Binding CurrentSeriesCollection}" 
+                                           LegendLocation="None" 
+                                           Height="200">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="Date/Heure" 
+                                         Labels="{Binding Labels}" 
+                                         Foreground="White"/>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Ampères (A)" 
+                                         LabelFormatter="{Binding YFormatter}" 
+                                         Foreground="White"/>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                    </Grid>
+                </Border>
+
+                <!-- Graphique de puissance -->
+                <Border Grid.Row="2" Grid.Column="0" 
+                        Background="#252A41" 
+                        CornerRadius="8" 
+                        Margin="0,0,7.5,15">
+                    <Grid Margin="15">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" 
+                                   Text="Puissance (W)" 
+                                   FontSize="16" 
+                                   FontWeight="SemiBold" 
+                                   Foreground="White" 
+                                   Margin="0,0,0,10"/>
+                        <lvc:CartesianChart Grid.Row="1" 
+                                           Series="{Binding PowerSeriesCollection}" 
+                                           LegendLocation="None" 
+                                           Height="200">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="Date/Heure" 
+                                         Labels="{Binding Labels}" 
+                                         Foreground="White"/>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Watts (W)" 
+                                         LabelFormatter="{Binding YFormatter}" 
+                                         Foreground="White"/>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                    </Grid>
+                </Border>
+
+                <!-- Graphique de niveau de batterie -->
+                <Border Grid.Row="2" Grid.Column="1" 
+                        Background="#252A41" 
+                        CornerRadius="8" 
+                        Margin="7.5,0,0,15">
+                    <Grid Margin="15">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" 
+                                   Text="Niveau de batterie (%)" 
+                                   FontSize="16" 
+                                   FontWeight="SemiBold" 
+                                   Foreground="White" 
+                                   Margin="0,0,0,10"/>
+                        <lvc:CartesianChart Grid.Row="1" 
+                                           Series="{Binding BatteryLevelSeriesCollection}" 
+                                           LegendLocation="None" 
+                                           Height="200">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="Date/Heure" 
+                                         Labels="{Binding Labels}" 
+                                         Foreground="White"/>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Pourcentage (%)" 
+                                         LabelFormatter="{Binding YFormatter}" 
+                                         Foreground="White"/>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                    </Grid>
+                </Border>
+
+                <!-- Graphique d'énergie générée -->
+                <Border Grid.Row="3" Grid.Column="0" 
+                        Background="#252A41" 
+                        CornerRadius="8" 
+                        Margin="0,0,7.5,15">
+                    <Grid Margin="15">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" 
+                                   Text="Énergie générée (kWh)" 
+                                   FontSize="16" 
+                                   FontWeight="SemiBold" 
+                                   Foreground="White" 
+                                   Margin="0,0,0,10"/>
+                        <lvc:CartesianChart Grid.Row="1" 
+                                           Series="{Binding EnergyGeneratedSeriesCollection}" 
+                                           LegendLocation="None" 
+                                           Height="200">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="Date/Heure" 
+                                         Labels="{Binding Labels}" 
+                                         Foreground="White"/>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="kWh" 
+                                         LabelFormatter="{Binding YFormatter}" 
+                                         Foreground="White"/>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                    </Grid>
+                </Border>
+
+                <!-- Graphique d'énergie consommée -->
+                <Border Grid.Row="3" Grid.Column="1" 
+                        Background="#252A41" 
+                        CornerRadius="8" 
+                        Margin="7.5,0,0,15">
+                    <Grid Margin="15">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" 
+                                   Text="Énergie consommée (kWh)" 
+                                   FontSize="16" 
+                                   FontWeight="SemiBold" 
+                                   Foreground="White" 
+                                   Margin="0,0,0,10"/>
+                        <lvc:CartesianChart Grid.Row="1" 
+                                           Series="{Binding EnergyConsumedSeriesCollection}" 
+                                           LegendLocation="None" 
+                                           Height="200">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="Date/Heure" 
+                                         Labels="{Binding Labels}" 
+                                         Foreground="White"/>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="kWh" 
+                                         LabelFormatter="{Binding YFormatter}" 
+                                         Foreground="White"/>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                    </Grid>
+                </Border>
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </UserControl>

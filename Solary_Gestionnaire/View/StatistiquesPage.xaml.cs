@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Solary_Gestionnaire.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,14 +16,12 @@ using System.Windows.Shapes;
 
 namespace Solary_Gestionnaire.View
 {
-    /// <summary>
-    /// Logique d'interaction pour StatistiquesPage.xaml
-    /// </summary>
     public partial class StatistiquesPage : UserControl
     {
         public StatistiquesPage()
         {
             InitializeComponent();
+            DataContext = new StatistiquesViewModel();
         }
     }
 }

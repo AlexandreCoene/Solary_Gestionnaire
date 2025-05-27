@@ -1,15 +1,9 @@
 ﻿using Solary_Gestionnaire.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -114,15 +108,6 @@ namespace Solary_Gestionnaire.View
             }
         }
 
-        private void ResetPassword_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show(
-                "La fonctionnalité de réinitialisation de mot de passe sera disponible prochainement.",
-                "Information",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information
-            );
-        }
 
         private async void SupprimerUser_Click(object sender, RoutedEventArgs e)
         {
