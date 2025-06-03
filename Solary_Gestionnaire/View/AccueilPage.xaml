@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Solary_Gestionnaire.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    
+
     <Border Style="{StaticResource MainContentBorder}">
         <ScrollViewer Style="{StaticResource ModernScrollViewer}">
             <StackPanel HorizontalAlignment="Center">
@@ -20,7 +20,7 @@
                 </Border>
 
                 <!-- Titre principal avec effet de dégradé -->
-                <TextBlock Margin="0,0,0,30">
+                <TextBlock Margin="0,0,0,20">
                     <TextBlock.Foreground>
                         <StaticResource ResourceKey="AccentGradient"/>
                     </TextBlock.Foreground>
@@ -29,6 +29,85 @@
                     </TextBlock.Effect>
                     <Run Text="Solary - Borne Photovoltaïque" FontSize="32" FontWeight="Bold"/>
                 </TextBlock>
+
+                <!-- Boutons d'accès aux sites web -->
+                <Grid Margin="0,0,0,30">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Bouton Borne 3D -->
+                    <Button x:Name="Voir3DButton" 
+                            Grid.Column="0"
+                            Height="50" 
+                            FontSize="16" 
+                            FontWeight="SemiBold"
+                            Foreground="White"
+                            BorderThickness="0"
+                            Cursor="Hand"
+                            Click="Voir3DButton_Click"
+                            ToolTip="Découvrez notre borne de recharge en 3D interactif">
+                        <Button.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#FF8A2BE2" Offset="0"/>
+                                <GradientStop Color="#FF4169E1" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}" 
+                                        CornerRadius="8"
+                                        BorderThickness="0">
+                                    <Border.Effect>
+                                        <DropShadowEffect ShadowDepth="3" BlurRadius="8" Opacity="0.3" Color="#4169E1"/>
+                                    </Border.Effect>
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="🌐" FontSize="20" Margin="0,0,8,0"/>
+                            <TextBlock Text="Voir la borne en 3D"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Bouton Site Vitrine -->
+                    <Button x:Name="VoirSiteButton" 
+                            Grid.Column="2"
+                            Height="50" 
+                            FontSize="16" 
+                            FontWeight="SemiBold"
+                            Foreground="White"
+                            BorderThickness="0"
+                            Cursor="Hand"
+                            Click="VoirSiteButton_Click"
+                            ToolTip="Visitez notre site de présentation officiel">
+                        <Button.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#FFD4AF37" Offset="0"/>
+                                <GradientStop Color="#FFFF8C00" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}" 
+                                        CornerRadius="8"
+                                        BorderThickness="0">
+                                    <Border.Effect>
+                                        <DropShadowEffect ShadowDepth="3" BlurRadius="8" Opacity="0.3" Color="#FF8C00"/>
+                                    </Border.Effect>
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="🏢" FontSize="20" Margin="0,0,8,0"/>
+                            <TextBlock Text="Site de présentation"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
 
                 <!-- Présentation générale avec bordure élégante -->
                 <Border Style="{StaticResource CardBorder}" Width="700" HorizontalAlignment="Center" Margin="0,0,0,30">

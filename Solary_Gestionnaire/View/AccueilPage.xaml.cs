@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,10 @@ namespace Solary_Gestionnaire.View
         private DispatcherTimer sunRotationTimer;
         private double rotationAngle = 0;
 
+        // URLs des sites web
+        private const string Url3D = "https://v0-borne-solary-3-d.vercel.app/";
+        private const string UrlSite = "https://v0-site-internet-solary.vercel.app/";
+
         public AccueilPage()
         {
             InitializeComponent();
@@ -39,6 +44,42 @@ namespace Solary_Gestionnaire.View
         {
             rotationAngle = (rotationAngle + 0.2) % 360;
             SunRotation.Angle = rotationAngle;
+        }
+
+        // Gestionnaire d'événement pour le bouton 3D
+        private void Voir3DButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = Url3D,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Impossible d'ouvrir le lien : {ex.Message}", "Erreur",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
+        // Gestionnaire d'événement pour le bouton Site
+        private void VoirSiteButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = UrlSite,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Impossible d'ouvrir le lien : {ex.Message}", "Erreur",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
     }
 }
