@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:Solary_Gestionnaire"
         Title="Solary Gestionnaire" Height="750" Width="1300"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Icon="Ressource/Images/Logoo.ico">
 
     <Window.Resources>
         <!-- Animation pour le survol des boutons du menu -->
@@ -148,20 +149,7 @@
                                 <ToolTip Style="{StaticResource ModernToolTip}">Panne et Maintenance</ToolTip>
                             </Button.ToolTip>
                         </Button>
-
-                        <!-- Séparateur avant les paramètres -->
-                        <Border x:Name="MenuSeparator2" Height="1" Background="#3A3A5F" Margin="10,15,10,15" Opacity="0"/>
-
-                        <!-- Espace pour d'autres boutons futurs -->
-                        <Button x:Name="ParametresButton" Style="{StaticResource ModernNavButton}" Margin="5,3">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="⚙️" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Width="25" TextAlignment="Center"/>
-                                <TextBlock x:Name="ParametresText" Text="  Paramètres" Margin="8,0,0,0" VerticalAlignment="Center" Opacity="0"/>
-                            </StackPanel>
-                            <Button.ToolTip>
-                                <ToolTip Style="{StaticResource ModernToolTip}">Paramètres</ToolTip>
-                            </Button.ToolTip>
-                        </Button>
+                       
 
                         <!-- Séparateur et informations en bas du menu -->
                         <Border x:Name="MenuSeparator3" Height="1" Background="#3A3A5F" Margin="10,20,10,15" Opacity="0"/>

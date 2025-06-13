@@ -1,5 +1,6 @@
 ﻿using Solary_Gestionnaire.View;
 using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
@@ -88,7 +89,6 @@ namespace Solary_Gestionnaire
             // Animation de l'opacité du texte "Menu" et des séparateurs
             AnimateMenuElement(MenuTitle, open);
             AnimateMenuElement(MenuSeparator1, open);
-            AnimateMenuElement(MenuSeparator2, open);
             AnimateMenuElement(MenuSeparator3, open);
             AnimateMenuElement(VersionText, open);
 
@@ -98,7 +98,6 @@ namespace Solary_Gestionnaire
             AnimateMenuElement(UserText, open);
             AnimateMenuElement(StatText, open);
             AnimateMenuElement(MaintenanceText, open);
-            AnimateMenuElement(ParametresText, open);
 
             // Mise à jour dynamique de la marge du contenu principal avec animation
             ThicknessAnimation marginAnimation = new ThicknessAnimation(
@@ -157,9 +156,10 @@ namespace Solary_Gestionnaire
 
         private void PanneMaintenance_Button_Click(object sender, RoutedEventArgs e)
         {
-            AnimatePageTransition(() => {
-                MainGrid.Children.Clear();
-                MainGrid.Children.Add(new PannePage());
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "https://reservation.vabre.ch",
+                UseShellExecute = true
             });
         }
 

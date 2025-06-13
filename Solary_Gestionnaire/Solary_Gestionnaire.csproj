@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <None Remove="Ressource\Images\Logo.png" />
+    <None Remove="Ressource\Images\Logoo.ico" />
     <None Remove="Ressource\Images\SOLARY.png" />
   </ItemGroup>
 
@@ -20,7 +21,10 @@
 
   <ItemGroup>
     <Resource Include="Ressource\Images\Logo.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Ressource\Images\Logoo.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Ressource\Images\SOLARY.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

@@ -5,7 +5,8 @@
         Title="Solary - Connexion" 
         Height="650" Width="1000"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="NoResize">
+        ResizeMode="NoResize"
+        Icon="../Ressource/Images/Logoo.ico">
 
     <!-- Contenu simplifié -->
     <view:LoginWindow x:Name="LoginControl"/>
